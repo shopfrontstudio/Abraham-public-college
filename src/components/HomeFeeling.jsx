@@ -24,16 +24,12 @@ function HomeFeeling() {
         ref={sectionRef}
         className="bg-dot-grid relative overflow-hidden bg-navy py-20 text-cream md:py-28"
       >
-        <motion.div
-          aria-hidden="true"
-          className="absolute -left-16 top-0 h-72 w-72 rounded-full bg-gold/10 blur-3xl"
-          style={{ y: blobOneY }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-maroon/25 blur-3xl"
-          style={{ y: blobTwoY }}
-        />
+        <motion.div aria-hidden="true" className="absolute -left-16 top-0" style={{ y: blobOneY }}>
+          <div className="animate-float-slow h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
+        </motion.div>
+        <motion.div aria-hidden="true" className="absolute -right-20 bottom-0" style={{ y: blobTwoY }}>
+          <div className="animate-float-medium h-80 w-80 rounded-full bg-maroon/25 blur-3xl" />
+        </motion.div>
 
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>

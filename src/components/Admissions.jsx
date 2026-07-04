@@ -4,6 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 import { content } from "../content";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 import Magnetic from "./Magnetic";
+import Ripple from "./Ripple";
 
 const initialForm = {
   parentName: "",
@@ -31,7 +32,7 @@ function Admissions() {
   };
 
   return (
-    <section id="admissions" className="bg-cream-dark py-20 md:py-28">
+    <section id="admissions" className="bg-grid-lines bg-cream-dark py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <h2 className="text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
@@ -173,12 +174,14 @@ function Admissions() {
                     </div>
 
                     <Magnetic strength={0.2} className="block w-full">
-                      <button
-                        type="submit"
-                        className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
-                      >
-                        {submitLabel}
-                      </button>
+                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-full">
+                        <button
+                          type="submit"
+                          className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                        >
+                          {submitLabel}
+                        </button>
+                      </Ripple>
                     </Magnetic>
                   </motion.form>
                 )}

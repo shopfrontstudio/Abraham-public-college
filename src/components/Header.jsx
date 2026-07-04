@@ -3,6 +3,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { GraduationCap, Menu, X } from "lucide-react";
 import { content } from "../content";
 import Magnetic from "./Magnetic";
+import Ripple from "./Ripple";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -107,13 +108,15 @@ function Header() {
               {item.label}
             </a>
           ))}
-          <a
-            href="#admissions"
-            className="rounded-full bg-maroon px-5 py-2.5 text-center font-body text-cream"
-            onClick={() => setMenuOpen(false)}
-          >
-            {navCta}
-          </a>
+          <Ripple className="relative block overflow-hidden rounded-full">
+            <a
+              href="#admissions"
+              className="block rounded-full bg-maroon px-5 py-2.5 text-center font-body text-cream"
+              onClick={() => setMenuOpen(false)}
+            >
+              {navCta}
+            </a>
+          </Ripple>
         </nav>
       )}
     </header>

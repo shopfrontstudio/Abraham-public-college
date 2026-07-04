@@ -2,6 +2,7 @@ import { MapPin, Phone, Mail, Clock, Navigation, PhoneCall } from "lucide-react"
 import { content } from "../content";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 import Magnetic from "./Magnetic";
+import Ripple from "./Ripple";
 
 function Contact() {
   const { contact } = content;
@@ -43,24 +44,28 @@ function Contact() {
 
             <div className="mt-6 flex flex-wrap gap-4">
               <Magnetic strength={0.25}>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-navy/30"
-                >
-                  <Navigation className="h-4 w-4" aria-hidden="true" />
-                  {contact.directionsLabel}
-                </a>
+                <Ripple className="relative inline-block overflow-hidden rounded-full">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-navy/30"
+                  >
+                    <Navigation className="h-4 w-4" aria-hidden="true" />
+                    {contact.directionsLabel}
+                  </a>
+                </Ripple>
               </Magnetic>
               <Magnetic strength={0.25}>
-                <a
-                  href={`tel:${contact.phone}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-maroon px-6 py-3 font-body font-medium text-maroon transition-colors hover:bg-maroon hover:text-cream"
-                >
-                  <PhoneCall className="h-4 w-4" aria-hidden="true" />
-                  {contact.callLabel}
-                </a>
+                <Ripple color="rgba(122,30,44,0.15)" className="relative inline-block overflow-hidden rounded-full">
+                  <a
+                    href={`tel:${contact.phone}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-maroon px-6 py-3 font-body font-medium text-maroon transition-colors hover:bg-maroon hover:text-cream"
+                  >
+                    <PhoneCall className="h-4 w-4" aria-hidden="true" />
+                    {contact.callLabel}
+                  </a>
+                </Ripple>
               </Magnetic>
             </div>
           </Reveal>

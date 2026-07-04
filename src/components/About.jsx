@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { content } from "../content";
 import { Icon } from "../lib/icons";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
@@ -5,10 +7,31 @@ import TiltCard from "./TiltCard";
 
 function About() {
   const { about } = content;
+  const sectionRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const shapeOneY = useTransform(scrollYProgress, [0, 1], [reduceMotion ? 0 : 40, reduceMotion ? 0 : -40]);
+  const shapeTwoY = useTransform(scrollYProgress, [0, 1], [reduceMotion ? 0 : -30, reduceMotion ? 0 : 50]);
 
   return (
-    <section id="about" className="bg-white py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section ref={sectionRef} id="about" className="relative overflow-hidden bg-white py-20 md:py-28">
+      {/* Parallax decorative shapes — purely atmospheric, drift at scroll-tied rates. */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute left-[6%] top-16 hidden h-16 w-16 rounded-full border-2 border-dashed border-gold/40 sm:block"
+        style={{ y: shapeOneY }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="absolute right-[8%] bottom-24 hidden h-10 w-10 rotate-12 border-2 border-maroon/25 sm:block"
+        style={{ y: shapeTwoY }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <h2 className="font-heading text-3xl font-semibold text-navy md:text-4xl">

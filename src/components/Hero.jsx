@@ -7,6 +7,8 @@ import { EASE } from "../lib/motion";
 import { RevealGroup, RevealItem } from "./Reveal";
 import Magnetic from "./Magnetic";
 import TiltCard from "./TiltCard";
+import StaggerText from "./StaggerText";
+import Ripple from "./Ripple";
 
 const chipPositions = [
   "-top-5 -left-6 rotate-[-6deg]",
@@ -52,16 +54,19 @@ function Hero() {
         className="bg-dot-grid absolute inset-0"
         style={{ y: bgY }}
       />
-      <motion.div
-        aria-hidden="true"
-        className="absolute -top-24 left-[-10%] h-72 w-72 rounded-full bg-maroon/20 blur-3xl"
-        style={{ y: blobOneY }}
-      />
-      <motion.div
-        aria-hidden="true"
-        className="absolute -bottom-16 right-[-8%] h-80 w-80 rounded-full bg-gold/25 blur-3xl"
-        style={{ y: blobTwoY }}
-      />
+
+      {/* Animated aurora — two slow-drifting gradient bands behind the hero content. */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+        <div className="animate-aurora-one absolute -top-1/3 left-[-20%] h-[140%] w-[70%] rounded-full bg-gradient-to-br from-maroon/25 via-gold/10 to-transparent blur-3xl" />
+        <div className="animate-aurora-two absolute -top-1/4 right-[-25%] h-[130%] w-[65%] rounded-full bg-gradient-to-bl from-gold/25 via-navy/10 to-transparent blur-3xl" />
+      </div>
+
+      <motion.div aria-hidden="true" className="absolute -top-24 left-[-10%]" style={{ y: blobOneY }}>
+        <div className="animate-float-slow h-72 w-72 rounded-full bg-maroon/20 blur-3xl" />
+      </motion.div>
+      <motion.div aria-hidden="true" className="absolute -bottom-16 right-[-8%]" style={{ y: blobTwoY }}>
+        <div className="animate-float-medium h-80 w-80 rounded-full bg-gold/25 blur-3xl" />
+      </motion.div>
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2">
         <motion.div
@@ -73,9 +78,16 @@ function Hero() {
             {content.school.location}
           </p>
           <h1 className="mt-3 font-heading text-4xl font-semibold leading-tight tracking-tight text-navy md:text-5xl lg:text-6xl">
-            {headlineLead ? `${headlineLead}. ` : null}
+            {headlineLead ? <StaggerText text={`${headlineLead}.`} /> : null}
             {headlineAccent ? (
-              <span className="text-gradient-gold">{headlineAccent}</span>
+              <>
+                {" "}
+                <StaggerText
+                  text={headlineAccent}
+                  wordClassName="text-gradient-gold"
+                  startDelay={headlineLead ? headlineLead.split(" ").length * 0.06 : 0}
+                />
+              </>
             ) : null}
           </h1>
           <p className="mt-6 max-w-md font-body text-lg leading-relaxed text-ink/80">
@@ -84,20 +96,24 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Magnetic strength={0.3}>
-              <a
-                href="#admissions"
-                className="inline-block rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
-              >
-                {hero.primaryCta}
-              </a>
+              <Ripple className="btn-shine relative inline-block overflow-hidden rounded-full">
+                <a
+                  href="#admissions"
+                  className="inline-block rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                >
+                  {hero.primaryCta}
+                </a>
+              </Ripple>
             </Magnetic>
             <Magnetic strength={0.3}>
-              <a
-                href="#contact"
-                className="inline-block rounded-full border border-navy/30 px-6 py-3 font-body font-medium text-navy transition-colors hover:border-navy hover:bg-navy hover:text-cream"
-              >
-                {hero.secondaryCta}
-              </a>
+              <Ripple color="rgba(16,42,67,0.15)" className="relative inline-block overflow-hidden rounded-full">
+                <a
+                  href="#contact"
+                  className="inline-block rounded-full border border-navy/30 px-6 py-3 font-body font-medium text-navy transition-colors hover:border-navy hover:bg-navy hover:text-cream"
+                >
+                  {hero.secondaryCta}
+                </a>
+              </Ripple>
             </Magnetic>
           </div>
 
