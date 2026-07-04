@@ -33,7 +33,7 @@ function Admissions() {
 
   return (
     <section id="admissions" className="bg-grid-lines bg-cream-dark py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
         <Reveal>
           <h2 className="text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
             {admissions.heading}
