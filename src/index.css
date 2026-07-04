@@ -4,14 +4,15 @@
   --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Manrope", system-ui, -apple-system, sans-serif;
 
-  --color-cream: #fff8ec;
-  --color-cream-dark: #f7ecd8;
-  --color-navy: #102a43;
-  --color-navy-dark: #0a1c2e;
+  /* Navy and gold are sampled from the official school crest. */
+  --color-cream: #fdf8ee;
+  --color-cream-dark: #f6ebd6;
+  --color-navy: #14213d;
+  --color-navy-dark: #0c1428;
   --color-maroon: #7a1e2c;
   --color-maroon-dark: #591520;
-  --color-gold: #d6a84f;
-  --color-gold-light: #efdcae;
+  --color-gold: #c9962e;
+  --color-gold-light: #ecd9a8;
   --color-blue-soft: #dceeff;
   --color-green-soft: #e8f5e9;
   --color-sage: #6b8f71;

@@ -1,6 +1,6 @@
 // A soft curved divider between sections. `color` should match the
 // background colour of the section that FOLLOWS this divider.
-function SectionDivider({ color = "#fff8ec", flip = false }) {
+function SectionDivider({ color = "#fdf8ee", flip = false }) {
   return (
     <div
       aria-hidden="true"

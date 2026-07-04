@@ -19,7 +19,7 @@ function HomeFeeling() {
 
   return (
     <>
-      <SectionDivider color="#102A43" />
+      <SectionDivider color="#14213d" />
       <section
         ref={sectionRef}
         className="bg-dot-grid relative overflow-hidden bg-navy py-20 text-cream md:py-28"
@@ -60,7 +60,7 @@ function HomeFeeling() {
           </RevealGroup>
         </div>
       </section>
-      <SectionDivider color="#f7ecd8" flip />
+      <SectionDivider color="#f6ebd6" flip />
     </>
   );
 }

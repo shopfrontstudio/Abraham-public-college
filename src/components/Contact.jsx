@@ -28,7 +28,7 @@ function Contact() {
 
   return (
     <>
-      <SectionDivider color="#102a43" />
+      <SectionDivider color="#14213d" />
       <section
         ref={sectionRef}
         id="contact"

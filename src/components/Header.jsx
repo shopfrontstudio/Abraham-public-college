@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { content } from "../content";
 import Magnetic from "./Magnetic";
 import Ripple from "./Ripple";
+import Crest from "./Crest";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,9 +51,7 @@ function Header() {
         transition={{ duration: 0.35, ease: "easeOut" }}
       >
         <a href="#home" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-navy text-cream">
-            <GraduationCap className="h-5 w-5" aria-hidden="true" />
-          </span>
+          <Crest className="h-11 w-11 shrink-0 drop-shadow-sm" />
           <span className="font-heading text-lg font-semibold leading-tight text-navy sm:text-xl">
             {school.name}
           </span>
