@@ -146,8 +146,20 @@ body {
 }
 
 /* Soft line-grid backdrop that fades out toward the section edges so it
-   reads as texture, not a spreadsheet. */
+   reads as texture, not a spreadsheet. The fade lives on a ::before layer
+   behind the content — masking the section itself would fade real UI
+   (panels, buttons) to transparent at the edges along with the texture. */
 .bg-grid-lines {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-grid-lines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-image:
     repeating-linear-gradient(
       to right,
