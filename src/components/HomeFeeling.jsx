@@ -33,7 +33,10 @@ function HomeFeeling() {
 
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>
-            <h2 className="font-heading text-3xl font-semibold md:text-4xl">
+            <p className="font-body text-sm font-semibold uppercase tracking-widest text-gold">
+              {homeFeeling.kicker}
+            </p>
+            <h2 className="mt-3 font-heading text-3xl font-semibold md:text-4xl">
               {homeFeeling.heading}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-cream/85">
@@ -57,7 +60,7 @@ function HomeFeeling() {
           </RevealGroup>
         </div>
       </section>
-      <SectionDivider color="#fff8ec" flip />
+      <SectionDivider color="#f7ecd8" flip />
     </>
   );
 }

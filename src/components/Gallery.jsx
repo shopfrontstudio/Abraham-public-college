@@ -6,7 +6,7 @@ const accentGradients = {
   navy: "from-navy to-navy-dark",
   maroon: "from-maroon to-maroon-dark",
   gold: "from-gold to-[#a97f34]",
-  blue: "from-[#8fbfe8] to-navy",
+  sage: "from-sage to-navy-dark",
 };
 
 function Gallery() {

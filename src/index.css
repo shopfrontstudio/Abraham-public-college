@@ -14,6 +14,7 @@
   --color-gold-light: #efdcae;
   --color-blue-soft: #dceeff;
   --color-green-soft: #e8f5e9;
+  --color-sage: #6b8f71;
   --color-ink: #1f2933;
 
   --animate-float-slow: float 6s ease-in-out infinite;
@@ -222,6 +223,29 @@ body {
 .btn-shine:hover::after,
 .btn-shine:focus-visible::after {
   transform: translateX(120%);
+}
+
+/* Soft radial glow centered behind a heading, for quiet hierarchy on
+   sections that otherwise have no background treatment of their own.
+   A decorative ::before layer, not a mask — never touches the heading's
+   own legibility. Reserved for a couple of headings, not applied globally. */
+.heading-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.heading-glow::before {
+  content: "";
+  position: absolute;
+  inset: -60% -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-gold) 22%, transparent),
+    transparent 72%
+  );
+  filter: blur(28px);
 }
 
 @media (prefers-reduced-motion: reduce) {

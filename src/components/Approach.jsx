@@ -38,9 +38,12 @@ function Approach() {
     <section className="bg-notebook-lines bg-cream py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <h2 className="text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
+          <h2 className="heading-glow mx-auto w-fit text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
             <StaggerText text={approach.heading} />
           </h2>
+          <p className="mx-auto mt-3 max-w-md text-center font-body text-ink/70">
+            {approach.subheading}
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-16">
