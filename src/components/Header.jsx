@@ -1,14 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { GraduationCap, Menu, X } from "lucide-react";
 import { content } from "../content";
+import Magnetic from "./Magnetic";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeHref, setActiveHref] = useState("#home");
   const { school, nav, navCta } = content;
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 24);
+  });
+
+  useEffect(() => {
+    const sections = nav
+      .map((item) => document.querySelector(item.href))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHref(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [nav]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gold-light/60 bg-cream/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+    <header
+      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled
+          ? "border-gold-light/70 bg-cream/90 shadow-[0_8px_30px_rgba(16,42,67,0.08)] backdrop-blur-lg"
+          : "border-gold-light/40 bg-cream/70 backdrop-blur-md"
+      }`}
+    >
+      <motion.div
+        className="mx-auto flex max-w-6xl items-center justify-between px-6"
+        animate={{ paddingTop: scrolled ? 10 : 16, paddingBottom: scrolled ? 10 : 16 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      >
         <a href="#home" className="flex items-center gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-navy text-cream">
             <GraduationCap className="h-5 w-5" aria-hidden="true" />
@@ -23,18 +62,26 @@ function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="group relative font-body text-ink/80 transition-colors hover:text-maroon"
+              className={`group relative font-body transition-colors ${
+                activeHref === item.href ? "text-maroon" : "text-ink/80 hover:text-maroon"
+              }`}
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+              <span
+                className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
+                  activeHref === item.href ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              />
             </a>
           ))}
-          <a
-            href="#admissions"
-            className="rounded-full bg-maroon px-5 py-2.5 font-body text-sm font-medium text-cream shadow-sm transition-all hover:bg-maroon-dark hover:shadow-md"
-          >
-            {navCta}
-          </a>
+          <Magnetic strength={0.25}>
+            <a
+              href="#admissions"
+              className="rounded-full bg-maroon px-5 py-2.5 font-body text-sm font-medium text-cream shadow-sm transition-all hover:bg-maroon-dark hover:shadow-md"
+            >
+              {navCta}
+            </a>
+          </Magnetic>
         </nav>
 
         <button
@@ -46,7 +93,7 @@ function Header() {
         >
           {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-      </div>
+      </motion.div>
 
       {menuOpen && (
         <nav className="flex flex-col gap-4 border-t border-gold-light/60 px-6 py-6 md:hidden">

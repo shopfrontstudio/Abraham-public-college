@@ -1,6 +1,7 @@
 import { content } from "../content";
 import { Icon } from "../lib/icons";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import TiltCard from "./TiltCard";
 
 function About() {
   const { about } = content;
@@ -17,9 +18,10 @@ function About() {
               {about.copy}
             </p>
 
-            <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <RevealGroup as="ul" className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.08}>
               {about.highlights.map((item) => (
-                <li
+                <RevealItem
+                  as="li"
                   key={item.label}
                   className="flex items-center gap-3 rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink/80"
                 >
@@ -27,13 +29,13 @@ function About() {
                     <Icon name={item.icon} className="h-4 w-4" />
                   </span>
                   {item.label}
-                </li>
+                </RevealItem>
               ))}
-            </ul>
+            </RevealGroup>
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="rounded-3xl border border-gold-light bg-gradient-to-br from-cream-dark to-cream p-8 shadow-sm">
+            <TiltCard className="rounded-3xl border border-gold-light bg-gradient-to-br from-cream-dark to-cream p-8 shadow-sm [transform-style:preserve-3d]">
               <blockquote className="border-l-4 border-gold pl-5 font-heading text-xl italic leading-snug text-navy">
                 “{about.quote}”
               </blockquote>
@@ -56,7 +58,7 @@ function About() {
                   </div>
                 ))}
               </div>
-            </div>
+            </TiltCard>
           </Reveal>
         </div>
       </div>

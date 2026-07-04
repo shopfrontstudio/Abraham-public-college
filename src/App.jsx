@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div className="min-h-screen bg-cream">
+      <div className="bg-grain" aria-hidden="true" />
       <Header />
       <main>
         <Hero />

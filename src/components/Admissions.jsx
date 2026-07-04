@@ -2,7 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { content } from "../content";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import Magnetic from "./Magnetic";
 
 const initialForm = {
   parentName: "",
@@ -47,9 +48,9 @@ function Admissions() {
               <h3 className="font-heading text-xl font-semibold">
                 How admission works
               </h3>
-              <ol className="mt-6 space-y-6">
+              <RevealGroup as="ol" className="mt-6 space-y-6" stagger={0.12}>
                 {admissions.steps.map((step, index) => (
-                  <li key={step.title} className="flex gap-4">
+                  <RevealItem as="li" key={step.title} className="flex gap-4">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold/50 font-heading text-sm font-semibold text-gold">
                       {index + 1}
                     </span>
@@ -61,9 +62,9 @@ function Admissions() {
                         {step.description}
                       </p>
                     </div>
-                  </li>
+                  </RevealItem>
                 ))}
-              </ol>
+              </RevealGroup>
             </div>
           </Reveal>
 
@@ -171,12 +172,14 @@ function Admissions() {
                       />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-all hover:-translate-y-0.5 hover:bg-maroon-dark hover:shadow-md"
-                    >
-                      {submitLabel}
-                    </button>
+                    <Magnetic strength={0.2} className="block w-full">
+                      <button
+                        type="submit"
+                        className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                      >
+                        {submitLabel}
+                      </button>
+                    </Magnetic>
                   </motion.form>
                 )}
               </AnimatePresence>

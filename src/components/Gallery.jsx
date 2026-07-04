@@ -1,5 +1,6 @@
 import { content } from "../content";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import TiltCard from "./TiltCard";
 
 const accentGradients = {
   navy: "from-navy to-navy-dark",
@@ -20,10 +21,10 @@ function Gallery() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4">
-          {gallery.items.map((item, index) => (
-            <Reveal key={item.label} delay={index * 0.08}>
-              <div className="group relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm">
+        <RevealGroup className="mt-12 grid grid-cols-2 gap-5 md:grid-cols-4" stagger={0.08}>
+          {gallery.items.map((item) => (
+            <RevealItem key={item.label}>
+              <TiltCard max={5} className="group relative aspect-square w-full overflow-hidden rounded-2xl shadow-sm ring-1 ring-transparent transition-shadow duration-300 hover:shadow-xl hover:ring-gold/40">
                 {/*
                   Placeholder visual — replace this gradient div with:
                   <img src="/path-to-photo.jpg" alt={item.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -35,10 +36,10 @@ function Gallery() {
                 <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 font-body text-xs font-medium text-navy shadow-sm">
                   {item.label}
                 </span>
-              </div>
-            </Reveal>
+              </TiltCard>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
