@@ -1,16 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
 
-  --color-cream: #faf6ee;
-  --color-cream-dark: #f2ead9;
-  --color-maroon: #6b1e28;
-  --color-maroon-dark: #4a1219;
-  --color-gold: #c8a355;
-  --color-gold-light: #e8dcc0;
-  --color-ink: #2b2320;
+  --color-cream: #fff8ec;
+  --color-cream-dark: #f7ecd8;
+  --color-navy: #102a43;
+  --color-navy-dark: #0a1c2e;
+  --color-maroon: #7a1e2c;
+  --color-maroon-dark: #591520;
+  --color-gold: #d6a84f;
+  --color-gold-light: #efdcae;
+  --color-blue-soft: #dceeff;
+  --color-green-soft: #e8f5e9;
+  --color-ink: #1f2933;
+
+  --animate-float-slow: float 6s ease-in-out infinite;
+  --animate-float-medium: float 5s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s ease-out both;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--tw-rotate, 0deg));
+    }
+    50% {
+      transform: translateY(-10px) rotate(var(--tw-rotate, 0deg));
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 html {
@@ -21,4 +50,24 @@ body {
   background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
+}
+
+/* Faint dot grid used as a subtle background texture on select sections. */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-navy) 14%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
+
+/* Faint notebook-rule pattern for a warm, educational texture. */
+.bg-notebook-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    color-mix(in srgb, var(--color-navy) 8%, transparent) 28px
+  );
 }
