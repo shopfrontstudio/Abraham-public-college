@@ -42,6 +42,7 @@ export const content = {
   },
 
   about: {
+    eyebrow: "Built on discipline, values, and everyday learning",
     heading: "About Abraham Public College",
     copy: "Abraham Public College is a humble school built with the aim of giving children a caring environment where they can learn, grow and develop good habits. Our focus is on basic education, discipline, respect, confidence and personal attention.",
     quote: "Our aim is to help every child learn with discipline, confidence and care.",
@@ -64,6 +65,7 @@ export const content = {
 
   approach: {
     heading: "What We Focus On",
+    subheading: "Simple, focused education for young learners.",
     items: [
       {
         icon: "BookOpen",
@@ -91,6 +93,7 @@ export const content = {
   },
 
   homeFeeling: {
+    kicker: "A caring place to learn, grow and feel confident",
     heading: "A School That Feels Like Home",
     copy: "Choosing a school is not only about books and classrooms. It is about finding a place where children are noticed, guided and encouraged every day.",
     points: [
@@ -130,11 +133,13 @@ export const content = {
       { label: "School Building", accent: "navy" },
       { label: "Classroom", accent: "maroon" },
       { label: "Students", accent: "gold" },
-      { label: "Activities", accent: "blue" },
+      { label: "Activities", accent: "sage" },
     ],
   },
 
   contact: {
+    ctaEyebrow: "A strong beginning for every child",
+    ctaHeadline: "Begin your child's learning journey with Abraham Public College.",
     heading: "Contact Abraham Public College",
     address: "Abraham Public College, Lucknow, Uttar Pradesh",
     phone: "Add phone number here",

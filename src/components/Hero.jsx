@@ -9,6 +9,7 @@ import Magnetic from "./Magnetic";
 import TiltCard from "./TiltCard";
 import StaggerText from "./StaggerText";
 import Ripple from "./Ripple";
+import CrestWatermark from "./CrestWatermark";
 
 const chipPositions = [
   "-top-5 -left-6 rotate-[-6deg]",
@@ -54,6 +55,10 @@ function Hero() {
         className="bg-dot-grid absolute inset-0"
         style={{ y: bgY }}
       />
+
+      {/* Quiet institutional mark — static, very low opacity, never competes
+          with the aurora/chips layered above it. */}
+      <CrestWatermark className="absolute -right-16 top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 text-navy opacity-[0.05] md:block" />
 
       {/* Animated aurora — two slow-drifting gradient bands behind the hero content. */}
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">

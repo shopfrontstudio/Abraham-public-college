@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { BookOpen, Star } from "lucide-react";
 import { content } from "../content";
 import { Icon } from "../lib/icons";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
 import TiltCard from "./TiltCard";
+import CrestWatermark from "./CrestWatermark";
 
 function About() {
   const { about } = content;
@@ -19,22 +21,32 @@ function About() {
 
   return (
     <section ref={sectionRef} id="about" className="relative overflow-hidden bg-white py-20 md:py-28">
-      {/* Parallax decorative shapes — purely atmospheric, drift at scroll-tied rates. */}
+      <CrestWatermark className="pointer-events-none absolute -left-20 bottom-0 hidden h-[380px] w-[380px] text-navy opacity-[0.05] lg:block" />
+
+      {/* Parallax floating shapes — book and star, echoing the hero's
+          learning motif in a quieter, sage-tinted register for this section. */}
       <motion.div
         aria-hidden="true"
-        className="absolute left-[6%] top-16 hidden h-16 w-16 rounded-full border-2 border-dashed border-gold/40 sm:block"
+        className="absolute left-[6%] top-16 hidden text-sage/50 sm:block"
         style={{ y: shapeOneY }}
-      />
+      >
+        <BookOpen className="h-10 w-10" strokeWidth={1.25} />
+      </motion.div>
       <motion.div
         aria-hidden="true"
-        className="absolute right-[8%] bottom-24 hidden h-10 w-10 rotate-12 border-2 border-maroon/25 sm:block"
+        className="absolute right-[8%] bottom-24 hidden text-gold/60 sm:block"
         style={{ y: shapeTwoY }}
-      />
+      >
+        <Star className="h-8 w-8" strokeWidth={1.25} />
+      </motion.div>
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
-            <h2 className="font-heading text-3xl font-semibold text-navy md:text-4xl">
+            <p className="font-body text-sm font-semibold uppercase tracking-widest text-maroon">
+              {about.eyebrow}
+            </p>
+            <h2 className="heading-glow mt-3 font-heading text-3xl font-semibold text-navy md:text-4xl">
               {about.heading}
             </h2>
             <p className="mt-6 font-body text-lg leading-relaxed text-ink/80">
