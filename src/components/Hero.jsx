@@ -9,6 +9,7 @@ import Magnetic from "./Magnetic";
 import TiltCard from "./TiltCard";
 import StaggerText from "./StaggerText";
 import Ripple from "./Ripple";
+import Crest from "./Crest";
 import CrestWatermark from "./CrestWatermark";
 
 const chipPositions = [
@@ -141,10 +142,12 @@ function Hero() {
         >
           <TiltCard className="[transform-style:preserve-3d]">
             <div className="aspect-4/3 w-full rounded-3xl border border-gold-light bg-gradient-to-br from-navy via-navy to-maroon-dark p-1 shadow-xl">
-              <div className="flex h-full w-full items-center justify-center rounded-[1.35rem] bg-cream-dark/90 text-ink/40">
-                {/* Replace this placeholder with a real photo of the school. */}
-                <span className="font-body text-sm uppercase tracking-wide">
-                  School Photo
+              {/* Replace this placeholder (crest + caption) with a real photo
+                  of the school: <img src="..." alt="Abraham Public College" /> */}
+              <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-[1.35rem] bg-cream-dark/90">
+                <Crest className="h-44 w-44 drop-shadow-md md:h-52 md:w-52" />
+                <span className="font-body text-xs uppercase tracking-widest text-ink/40">
+                  Estd. 2004 · Lucknow
                 </span>
               </div>
             </div>

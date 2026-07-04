@@ -5,7 +5,7 @@ import TiltCard from "./TiltCard";
 const accentGradients = {
   navy: "from-navy to-navy-dark",
   maroon: "from-maroon to-maroon-dark",
-  gold: "from-gold to-[#a97f34]",
+  gold: "from-gold to-[#a87c1f]",
   sage: "from-sage to-navy-dark",
 };
 

@@ -1,5 +1,5 @@
-import { GraduationCap } from "lucide-react";
 import { content } from "../content";
+import Crest from "./Crest";
 
 function Footer() {
   const { footer } = content;
@@ -9,13 +9,13 @@ function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/60 text-gold">
-                <GraduationCap className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <p className="font-heading text-lg font-semibold">{footer.name}</p>
+            <div className="flex items-center gap-3">
+              <Crest className="h-16 w-16 shrink-0" />
+              <div>
+                <p className="font-heading text-lg font-semibold">{footer.name}</p>
+                <p className="mt-1 font-body text-sm text-gold-light">{footer.tagline}</p>
+              </div>
             </div>
-            <p className="mt-2 font-body text-sm text-gold-light">{footer.tagline}</p>
           </div>
 
           <div>
