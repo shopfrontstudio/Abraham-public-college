@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Approach from "./components/Approach";
+import HomeFeeling from "./components/HomeFeeling";
 import Admissions from "./components/Admissions";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
@@ -15,6 +16,7 @@ function App() {
         <Hero />
         <About />
         <Approach />
+        <HomeFeeling />
         <Admissions />
         <Gallery />
         <Contact />
