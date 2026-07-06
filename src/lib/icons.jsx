@@ -16,6 +16,13 @@ import {
   Smile,
   Star,
   CheckCircle2,
+  Heart,
+  House,
+  Globe,
+  Camera,
+  ArrowRight,
+  Send,
+  Pencil,
 } from "lucide-react";
 
 // Maps icon names used in src/content.js to the actual icon components,
@@ -38,6 +45,13 @@ export const icons = {
   Smile,
   Star,
   CheckCircle2,
+  Heart,
+  House,
+  Globe,
+  Camera,
+  ArrowRight,
+  Send,
+  Pencil,
 };
 
 export function Icon({ name, className }) {
