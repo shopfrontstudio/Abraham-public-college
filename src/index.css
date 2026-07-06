@@ -1,33 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
 
-  /* "School day" palette: crest navy for trust, marigold sun for energy,
-     sky tints for calm, a coral pop for warmth — on near-white paper. */
-  --color-paper: #fefefc;
-  --color-sky: #eaf4fe;
-  --color-sky-deep: #c9e4fb;
-  --color-navy: #14213d;
-  --color-navy-dark: #0c1428;
-  --color-sun: #ffb81c;
-  --color-sun-dark: #e8a200;
-  --color-sun-light: #ffefc9;
-  --color-coral: #e14b26;
-  --color-coral-dark: #c23d1e;
-  --color-sage: #3e8e63;
-  --color-mint: #dff3e6;
-  --color-ink: #22303f;
-
-  /* Hard offset "sticker" shadows — the design system's signature. */
-  --shadow-sticker: 6px 6px 0 0 #14213d;
-  --shadow-sticker-sm: 3px 3px 0 0 #14213d;
-  --shadow-sticker-sun: 6px 6px 0 0 #ffb81c;
+  /* Prospectus palette from the reference mockup: deep navy header/footer,
+     maroon CTAs, gold accents, cream page, soft blue + soft yellow sections. */
+  --color-navy: #102a43;
+  --color-navy-deep: #08213f;
+  --color-maroon: #8a1e2d;
+  --color-maroon-dark: #6d1622;
+  --color-gold: #d6a84f;
+  --color-gold-soft: #f3e2bd;
+  --color-cream: #fff8ec;
+  --color-cream-deep: #f7ecd8;
+  --color-blue-soft: #eff8ff;
+  --color-blue-card: #dceefb;
+  --color-yellow-soft: #fff4d8;
+  --color-green-soft: #e3f2e6;
+  --color-green-accent: #4c9a63;
+  --color-blue-accent: #3d7fb8;
+  --color-pink-accent: #c94f63;
+  --color-ink: #102033;
+  --color-muted: #5f6b7a;
 
   --animate-float-slow: float 6s ease-in-out infinite;
   --animate-float-medium: float 5s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s ease-out both;
   --animate-ripple: ripple 0.6s ease-out;
 
   @keyframes float {
@@ -37,17 +35,6 @@
     }
     50% {
       transform: translateY(-10px) rotate(var(--tw-rotate, 0deg));
-    }
-  }
-
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 
@@ -68,18 +55,18 @@ html {
 }
 
 body {
-  background-color: var(--color-paper);
+  background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
 }
 
 ::selection {
-  background-color: var(--color-sun);
-  color: var(--color-navy-dark);
+  background-color: var(--color-gold);
+  color: var(--color-navy-deep);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-coral);
+  outline: 2px solid var(--color-gold);
   outline-offset: 3px;
 }
 
@@ -91,84 +78,18 @@ body {
   scroll-margin-top: 5.5rem;
 }
 
-/* Marker-pen highlight under key words — the headline's signature accent.
-   Sits on the lower half of the glyphs so text stays fully legible. */
-.hl-sun {
-  background-image: linear-gradient(
-    180deg,
-    transparent 58%,
-    color-mix(in srgb, var(--color-sun) 75%, transparent) 58%
-  );
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding-inline: 0.06em;
-}
-
-/* Faint dot grid used as a subtle background texture on select sections. */
+/* Faint dot grid — the mockup's dotted decorative patterns. */
 .bg-dot-grid {
   background-image: radial-gradient(
     circle,
-    color-mix(in srgb, var(--color-navy) 14%, transparent) 1px,
-    transparent 1.5px
+    color-mix(in srgb, var(--color-navy) 16%, transparent) 1.5px,
+    transparent 2px
   );
-  background-size: 22px 22px;
+  background-size: 20px 20px;
 }
 
-/* Faint notebook-rule pattern for a warm, educational texture. */
-.bg-notebook-lines {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    color-mix(in srgb, var(--color-navy) 8%, transparent) 28px
-  );
-}
-
-/* Whole-page film-grain texture — keeps flat colour fields from feeling
-   sterile. Fixed + blend-mode so it costs one paint layer, not per-section. */
-.bg-grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.03;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Soft line-grid backdrop that fades out toward the section edges so it
-   reads as texture, not a spreadsheet. The fade lives on a ::before layer
-   behind the content — masking the section itself would fade real UI
-   (panels, buttons) to transparent at the edges along with the texture. */
-.bg-grid-lines {
-  position: relative;
-  isolation: isolate;
-}
-
-.bg-grid-lines::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(
-      to right,
-      color-mix(in srgb, var(--color-navy) 7%, transparent) 0 1px,
-      transparent 1px 64px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-navy) 7%, transparent) 0 1px,
-      transparent 1px 64px
-    );
-  mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
-}
-
-/* Cursor-lit glow for spotlight-hover cards. --spot-x/--spot-y are set via
-   JS on pointermove (mouse only); default to center so touch/keyboard users
-   still see a resting glow rather than nothing. */
+/* Cursor-lit glow for spotlight-hover cards (mouse only; resting state
+   elsewhere). */
 .spotlight-card {
   --spot-x: 50%;
   --spot-y: 50%;
@@ -176,8 +97,8 @@ body {
 
 .spotlight-card__glow {
   background: radial-gradient(
-    280px circle at var(--spot-x) var(--spot-y),
-    color-mix(in srgb, var(--color-sun) 30%, transparent),
+    260px circle at var(--spot-x) var(--spot-y),
+    color-mix(in srgb, var(--color-gold) 22%, transparent),
     transparent 70%
   );
 }
@@ -187,8 +108,7 @@ body {
   opacity: 1;
 }
 
-/* Diagonal shine sweep for signature CTAs — reserved for one accent button
-   style, not applied globally. */
+/* Diagonal shine sweep for the primary CTA style. */
 .btn-shine {
   position: relative;
   overflow: hidden;
@@ -203,7 +123,7 @@ body {
   background: linear-gradient(
     115deg,
     transparent 30%,
-    color-mix(in srgb, white 55%, transparent) 50%,
+    color-mix(in srgb, white 45%, transparent) 50%,
     transparent 70%
   );
   transform: translateX(-120%);
@@ -213,27 +133,6 @@ body {
 .btn-shine:hover::after,
 .btn-shine:focus-visible::after {
   transform: translateX(120%);
-}
-
-/* Soft radial glow centered behind a heading, for quiet hierarchy on
-   sections that otherwise have no background treatment of their own. */
-.heading-glow {
-  position: relative;
-  isolation: isolate;
-}
-
-.heading-glow::before {
-  content: "";
-  position: absolute;
-  inset: -60% -10%;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--color-sun) 26%, transparent),
-    transparent 72%
-  );
-  filter: blur(28px);
 }
 
 @media (prefers-reduced-motion: reduce) {
