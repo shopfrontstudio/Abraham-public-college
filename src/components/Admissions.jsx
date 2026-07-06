@@ -32,7 +32,7 @@ function Admissions() {
   };
 
   return (
-    <section id="admissions" className="bg-grid-lines bg-cream-dark py-20 md:py-28">
+    <section id="admissions" className="bg-grid-lines bg-sky py-20 md:py-28">
       <div className="relative z-10 mx-auto max-w-6xl px-6">
         <Reveal>
           <h2 className="text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
@@ -45,21 +45,21 @@ function Admissions() {
 
         <div className="mt-14 grid gap-8 md:grid-cols-5">
           <Reveal className="md:col-span-2" delay={0.1}>
-            <div className="h-full rounded-3xl bg-navy p-8 text-cream">
+            <div className="h-full rounded-3xl border-2 border-navy bg-navy p-8 text-paper shadow-sticker-sun">
               <h3 className="font-heading text-xl font-semibold">
                 How admission works
               </h3>
               <RevealGroup as="ol" className="mt-6 space-y-6" stagger={0.12}>
                 {admissions.steps.map((step, index) => (
                   <RevealItem as="li" key={step.title} className="flex gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold/50 font-heading text-sm font-semibold text-gold">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sun/50 font-heading text-sm font-semibold text-sun">
                       {index + 1}
                     </span>
                     <div>
-                      <p className="font-body font-semibold text-cream">
+                      <p className="font-body font-semibold text-paper">
                         {step.title}
                       </p>
-                      <p className="mt-1 font-body text-sm text-cream/75">
+                      <p className="mt-1 font-body text-sm text-paper/75">
                         {step.description}
                       </p>
                     </div>
@@ -70,8 +70,8 @@ function Admissions() {
           </Reveal>
 
           <Reveal className="md:col-span-3" delay={0.2}>
-            <div className="h-full rounded-3xl border border-gold-light bg-white p-8 shadow-sm">
-              <p className="font-heading text-lg font-medium text-maroon">
+            <div className="h-full rounded-3xl border-2 border-navy bg-white p-8 shadow-sticker">
+              <p className="font-heading text-lg font-medium text-coral">
                 {admissions.ctaText}
               </p>
 
@@ -83,9 +83,9 @@ function Admissions() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     role="status"
-                    className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-gold bg-cream px-6 py-10 text-center"
+                    className="mt-8 flex flex-col items-center gap-3 rounded-2xl border-2 border-sage bg-mint px-6 py-10 text-center"
                   >
-                    <CheckCircle2 className="h-10 w-10 text-maroon" aria-hidden="true" />
+                    <CheckCircle2 className="h-10 w-10 text-sage" aria-hidden="true" />
                     <p className="font-body text-navy">{successMessage}</p>
                   </motion.div>
                 ) : (
@@ -108,7 +108,7 @@ function Admissions() {
                         required
                         value={formData.parentName}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                        className="w-full rounded-xl border-2 border-navy/15 bg-paper px-4 py-3 font-body text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
                       />
                     </div>
 
@@ -123,7 +123,7 @@ function Admissions() {
                         required
                         value={formData.studentName}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                        className="w-full rounded-xl border-2 border-navy/15 bg-paper px-4 py-3 font-body text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
                       />
                     </div>
 
@@ -139,7 +139,7 @@ function Admissions() {
                           required
                           value={formData.classInterested}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                          className="w-full rounded-xl border-2 border-navy/15 bg-paper px-4 py-3 font-body text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
                         />
                       </div>
 
@@ -154,7 +154,7 @@ function Admissions() {
                           required
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                          className="w-full rounded-xl border-2 border-navy/15 bg-paper px-4 py-3 font-body text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
                         />
                       </div>
                     </div>
@@ -169,15 +169,15 @@ function Admissions() {
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                        className="w-full rounded-xl border-2 border-navy/15 bg-paper px-4 py-3 font-body text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/20"
                       />
                     </div>
 
                     <Magnetic strength={0.2} className="block w-full">
-                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-full">
+                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-2xl">
                         <button
                           type="submit"
-                          className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                          className="w-full rounded-2xl border-2 border-navy bg-sun px-6 py-3 font-body font-bold text-navy shadow-sticker-sm transition-all hover:-translate-y-0.5 hover:shadow-sticker"
                         >
                           {submitLabel}
                         </button>

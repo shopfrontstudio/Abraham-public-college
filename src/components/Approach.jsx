@@ -35,7 +35,7 @@ function Approach() {
   const activeItem = approach.items[activeIndex];
 
   return (
-    <section className="bg-notebook-lines bg-cream py-20 md:py-28">
+    <section className="bg-notebook-lines bg-sky py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <h2 className="heading-glow mx-auto w-fit text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
@@ -48,8 +48,8 @@ function Approach() {
 
         <div className="mt-14 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-16">
           <div className="md:sticky md:top-28 md:self-start">
-            <div className="rounded-3xl border border-gold-light bg-gradient-to-br from-white to-cream-dark/60 p-8 shadow-sm">
-              <span className="font-heading text-sm font-semibold uppercase tracking-widest text-maroon">
+            <div className="rounded-3xl border-2 border-navy bg-white p-8 shadow-sticker">
+              <span className="font-heading text-sm font-semibold uppercase tracking-widest text-coral">
                 {String(activeIndex + 1).padStart(2, "0")} / {String(approach.items.length).padStart(2, "0")}
               </span>
 
@@ -61,7 +61,7 @@ function Approach() {
                   exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
                 >
-                  <span className="mt-5 flex h-14 w-14 items-center justify-center rounded-full bg-navy text-cream">
+                  <span className="mt-5 flex h-14 w-14 items-center justify-center rounded-full bg-navy text-paper">
                     <Icon name={activeItem.icon} className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 font-heading text-2xl font-semibold text-navy">
@@ -79,7 +79,7 @@ function Approach() {
                     key={item.title}
                     aria-hidden="true"
                     className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                      index === activeIndex ? "bg-maroon" : "bg-navy/10"
+                      index === activeIndex ? "bg-sun" : "bg-navy/10"
                     }`}
                   />
                 ))}
@@ -96,8 +96,8 @@ function Approach() {
                 className="scroll-mt-32"
               >
                 <Reveal delay={index * 0.05}>
-                  <SpotlightCard className="group h-full rounded-2xl border border-gold-light bg-gradient-to-b from-white to-cream-dark/60 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-gold hover:shadow-lg">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-cream transition-colors duration-300 group-hover:bg-maroon">
+                  <SpotlightCard className="group h-full rounded-2xl border-2 border-navy/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-navy hover:shadow-sticker-sm">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-paper transition-colors duration-300 group-hover:bg-coral">
                       <Icon name={item.icon} className="h-5 w-5" />
                     </span>
                     <h3 className="mt-5 font-heading text-lg font-semibold text-navy">

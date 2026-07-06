@@ -20,7 +20,7 @@ export const content = {
   hero: {
     headline: "Simple Learning. Strong Values.",
     subheadline:
-      "Abraham Public College is a local school in Lucknow focused on discipline, basic education, care and personal attention for every child.",
+      "A small school in Lucknow where every child is known by name — building strong basics, good habits and everyday confidence.",
     primaryCta: "Admission Enquiry",
     secondaryCta: "Contact School",
     trustBadges: [
@@ -65,7 +65,7 @@ export const content = {
 
   approach: {
     heading: "What We Focus On",
-    subheading: "Simple, focused education for young learners.",
+    subheading: "Four simple promises we keep, every single day.",
     items: [
       {
         icon: "BookOpen",
@@ -131,8 +131,8 @@ export const content = {
     heading: "School Moments",
     items: [
       { label: "School Building", accent: "navy" },
-      { label: "Classroom", accent: "maroon" },
-      { label: "Students", accent: "gold" },
+      { label: "Classroom", accent: "coral" },
+      { label: "Students", accent: "sun" },
       { label: "Activities", accent: "sage" },
     ],
   },

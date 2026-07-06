@@ -41,8 +41,8 @@ function Header() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
         scrolled
-          ? "border-gold-light/70 bg-cream/90 shadow-[0_8px_30px_rgba(16,42,67,0.08)] backdrop-blur-lg"
-          : "border-gold-light/40 bg-cream/70 backdrop-blur-md"
+          ? "border-navy/15 bg-paper/95 shadow-[0_8px_30px_rgba(20,33,61,0.08)] backdrop-blur-lg"
+          : "border-navy/10 bg-paper/80 backdrop-blur-md"
       }`}
     >
       <motion.div
@@ -52,7 +52,7 @@ function Header() {
       >
         <a href="#home" className="flex items-center gap-3">
           <Crest className="h-11 w-11 shrink-0 drop-shadow-sm" />
-          <span className="font-heading text-lg font-semibold leading-tight text-navy sm:text-xl">
+          <span className="font-heading text-lg font-bold leading-tight text-navy sm:text-xl">
             {school.name}
           </span>
         </a>
@@ -63,12 +63,12 @@ function Header() {
               key={item.href}
               href={item.href}
               className={`group relative font-body transition-colors ${
-                activeHref === item.href ? "text-maroon" : "text-ink/80 hover:text-maroon"
+                activeHref === item.href ? "text-coral" : "text-ink/80 hover:text-coral"
               }`}
             >
               {item.label}
               <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
+                className={`absolute -bottom-1 left-0 h-0.5 bg-sun transition-all duration-300 ${
                   activeHref === item.href ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
@@ -77,7 +77,7 @@ function Header() {
           <Magnetic strength={0.25}>
             <a
               href="#admissions"
-              className="rounded-full bg-maroon px-5 py-2.5 font-body text-sm font-medium text-cream shadow-sm transition-all hover:bg-maroon-dark hover:shadow-md"
+              className="rounded-xl border-2 border-navy bg-sun px-5 py-2 font-body text-sm font-bold text-navy shadow-sticker-sm transition-all hover:-translate-y-0.5"
             >
               {navCta}
             </a>
@@ -96,7 +96,7 @@ function Header() {
       </motion.div>
 
       {menuOpen && (
-        <nav className="flex flex-col gap-4 border-t border-gold-light/60 px-6 py-6 md:hidden">
+        <nav className="flex flex-col gap-4 border-t border-navy/10 px-6 py-6 md:hidden">
           {nav.map((item) => (
             <a
               key={item.href}
@@ -107,10 +107,10 @@ function Header() {
               {item.label}
             </a>
           ))}
-          <Ripple className="relative block overflow-hidden rounded-full">
+          <Ripple color="rgba(20,33,61,0.15)" className="relative block overflow-hidden rounded-xl">
             <a
               href="#admissions"
-              className="block rounded-full bg-maroon px-5 py-2.5 text-center font-body text-cream"
+              className="block rounded-xl border-2 border-navy bg-sun px-5 py-2.5 text-center font-body font-bold text-navy shadow-sticker-sm"
               onClick={() => setMenuOpen(false)}
             >
               {navCta}

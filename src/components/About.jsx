@@ -34,7 +34,7 @@ function About() {
       </motion.div>
       <motion.div
         aria-hidden="true"
-        className="absolute right-[8%] bottom-24 hidden text-gold/60 sm:block"
+        className="absolute right-[8%] bottom-24 hidden text-sun/60 sm:block"
         style={{ y: shapeTwoY }}
       >
         <Star className="h-8 w-8" strokeWidth={1.25} />
@@ -43,7 +43,7 @@ function About() {
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
-            <p className="font-body text-sm font-semibold uppercase tracking-widest text-maroon">
+            <p className="font-body text-sm font-semibold uppercase tracking-widest text-coral">
               {about.eyebrow}
             </p>
             <h2 className="heading-glow mt-3 font-heading text-3xl font-semibold text-navy md:text-4xl">
@@ -58,9 +58,9 @@ function About() {
                 <RevealItem
                   as="li"
                   key={item.label}
-                  className="flex items-center gap-3 rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink/80"
+                  className="flex items-center gap-3 rounded-xl border border-navy/10 bg-sky px-4 py-3 font-body font-medium text-ink/85"
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy/10 text-navy">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy text-sun">
                     <Icon name={item.icon} className="h-4 w-4" />
                   </span>
                   {item.label}
@@ -70,8 +70,8 @@ function About() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <TiltCard className="rounded-3xl border border-gold-light bg-gradient-to-br from-cream-dark to-cream p-8 shadow-sm [transform-style:preserve-3d]">
-              <blockquote className="border-l-4 border-gold pl-5 font-heading text-xl italic leading-snug text-navy">
+            <TiltCard className="rounded-3xl border-2 border-navy bg-white p-8 shadow-sticker [transform-style:preserve-3d]">
+              <blockquote className="border-l-4 border-sun pl-5 font-heading text-xl italic leading-snug text-navy">
                 “{about.quote}”
               </blockquote>
 
@@ -82,9 +82,9 @@ function About() {
                 {about.valuesCard.points.map((point) => (
                   <div
                     key={point.label}
-                    className="flex flex-col items-start gap-2 rounded-xl bg-white/70 p-4"
+                    className="flex flex-col items-start gap-2 rounded-xl bg-sky/70 p-4"
                   >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-maroon/10 text-maroon">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-coral/10 text-coral">
                       <Icon name={point.icon} className="h-4 w-4" />
                     </span>
                     <span className="font-body text-sm font-medium text-ink/80">
