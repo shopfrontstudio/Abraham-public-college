@@ -41,7 +41,7 @@ function Hero() {
   const photoY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -30]);
 
   // Headline follows a "Sentence. Sentence." shape — the second sentence
-  // gets the gold-to-maroon gradient accent for a premium focal point.
+  // gets the sun-to-coral gradient accent for a premium focal point.
   const headlineParts = hero.headline.split(". ").filter(Boolean);
   const [headlineLead, headlineAccent] = headlineParts;
 
@@ -57,22 +57,26 @@ function Hero() {
         style={{ y: bgY }}
       />
 
-      {/* Quiet institutional mark — static, very low opacity, never competes
-          with the aurora/chips layered above it. */}
+      {/* Quiet institutional mark — static, very low opacity. */}
       <CrestWatermark className="absolute -right-16 top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 text-navy opacity-[0.05] md:block" />
 
-      {/* Animated aurora — two slow-drifting gradient bands behind the hero content. */}
-      <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        <div className="animate-aurora-one absolute -top-1/3 left-[-20%] h-[140%] w-[70%] rounded-full bg-gradient-to-br from-maroon/25 via-gold/10 to-transparent blur-3xl" />
-        <div className="animate-aurora-two absolute -top-1/4 right-[-25%] h-[130%] w-[65%] rounded-full bg-gradient-to-bl from-gold/25 via-navy/10 to-transparent blur-3xl" />
-      </div>
-
-      <motion.div aria-hidden="true" className="absolute -top-24 left-[-10%]" style={{ y: blobOneY }}>
-        <div className="animate-float-slow h-72 w-72 rounded-full bg-maroon/20 blur-3xl" />
+      {/* Flat geometric shapes — a big marigold sun, a navy ring and a sky
+          disc. Bold and graphic rather than blurred, with gentle scroll
+          parallax for depth. */}
+      <motion.div aria-hidden="true" className="absolute -top-28 right-[-8%]" style={{ y: blobOneY }}>
+        <div className="animate-float-slow h-64 w-64 rounded-full bg-sun/90 md:h-80 md:w-80" />
       </motion.div>
-      <motion.div aria-hidden="true" className="absolute -bottom-16 right-[-8%]" style={{ y: blobTwoY }}>
-        <div className="animate-float-medium h-80 w-80 rounded-full bg-gold/25 blur-3xl" />
+      <motion.div aria-hidden="true" className="absolute -bottom-24 left-[-6%]" style={{ y: blobTwoY }}>
+        <div className="animate-float-medium h-56 w-56 rounded-full bg-sky-deep/60" />
       </motion.div>
+      <div
+        aria-hidden="true"
+        className="absolute left-[12%] top-24 hidden h-16 w-16 rounded-full border-[6px] border-navy/15 lg:block"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-24 right-[16%] hidden h-8 w-8 rotate-12 rounded-md bg-coral/70 lg:block"
+      />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2">
         <motion.div
@@ -80,17 +84,17 @@ function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.9, ease: EASE }}
         >
-          <p className="font-body text-sm font-semibold uppercase tracking-widest text-maroon">
+          <p className="font-body text-sm font-semibold uppercase tracking-widest text-coral">
             {content.school.location}
           </p>
-          <h1 className="mt-3 font-heading text-4xl font-semibold leading-tight tracking-tight text-navy md:text-5xl lg:text-6xl">
+          <h1 className="mt-3 font-heading text-4xl font-bold leading-tight tracking-tight text-navy md:text-5xl lg:text-6xl">
             {headlineLead ? <StaggerText text={`${headlineLead}.`} /> : null}
             {headlineAccent ? (
               <>
                 {" "}
                 <StaggerText
                   text={headlineAccent}
-                  wordClassName="text-gradient-gold"
+                  wordClassName="hl-sun"
                   startDelay={headlineLead ? headlineLead.split(" ").length * 0.06 : 0}
                 />
               </>
@@ -102,20 +106,20 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Magnetic strength={0.3}>
-              <Ripple className="btn-shine relative inline-block overflow-hidden rounded-full">
+              <Ripple color="rgba(20,33,61,0.2)" className="btn-shine relative inline-block overflow-hidden rounded-2xl">
                 <a
                   href="#admissions"
-                  className="inline-block rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                  className="inline-block rounded-2xl border-2 border-navy bg-sun px-6 py-3 font-body font-bold text-navy shadow-sticker-sm transition-all hover:-translate-y-0.5 hover:shadow-sticker"
                 >
                   {hero.primaryCta}
                 </a>
               </Ripple>
             </Magnetic>
             <Magnetic strength={0.3}>
-              <Ripple color="rgba(16,42,67,0.15)" className="relative inline-block overflow-hidden rounded-full">
+              <Ripple color="rgba(20,33,61,0.15)" className="relative inline-block overflow-hidden rounded-2xl">
                 <a
                   href="#contact"
-                  className="inline-block rounded-full border border-navy/30 px-6 py-3 font-body font-medium text-navy transition-colors hover:border-navy hover:bg-navy hover:text-cream"
+                  className="inline-block rounded-2xl border-2 border-navy px-6 py-3 font-body font-bold text-navy transition-colors hover:bg-navy hover:text-paper"
                 >
                   {hero.secondaryCta}
                 </a>
@@ -126,7 +130,7 @@ function Hero() {
           <RevealGroup as="ul" className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2" stagger={0.08}>
             {hero.trustBadges.map((badge) => (
               <RevealItem as="li" key={badge} className="flex items-center gap-2 font-body text-sm text-ink/75">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-maroon" aria-hidden="true" />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-sage" aria-hidden="true" />
                 {badge}
               </RevealItem>
             ))}
@@ -141,12 +145,12 @@ function Hero() {
           transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
         >
           <TiltCard className="[transform-style:preserve-3d]">
-            <div className="aspect-4/3 w-full rounded-3xl border border-gold-light bg-gradient-to-br from-navy via-navy to-maroon-dark p-1 shadow-xl">
+            <div className="aspect-4/3 w-full rounded-3xl border-2 border-navy bg-navy p-1.5 shadow-sticker">
               {/* Replace this placeholder (crest + caption) with a real photo
                   of the school: <img src="..." alt="Abraham Public College" /> */}
-              <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-[1.35rem] bg-cream-dark/90">
+              <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-[1.25rem] bg-sky">
                 <Crest className="h-44 w-44 drop-shadow-md md:h-52 md:w-52" />
-                <span className="font-body text-xs uppercase tracking-widest text-ink/40">
+                <span className="font-body text-xs font-semibold uppercase tracking-widest text-navy/50">
                   Estd. 2004 · Lucknow
                 </span>
               </div>
@@ -157,11 +161,11 @@ function Hero() {
             {hero.floatingChips.map((chip, index) => (
               <span
                 key={`${chip.type}-${chip.value}`}
-                className={`absolute hidden items-center gap-1 rounded-full border border-gold-light bg-white px-3 py-1.5 font-body text-xs font-semibold text-navy shadow-md sm:flex ${chipPositions[index % chipPositions.length]} ${floatAnim[index % floatAnim.length]}`}
+                className={`absolute hidden items-center gap-1 rounded-full border-2 border-navy bg-paper px-3 py-1.5 font-body text-xs font-bold text-navy shadow-sticker-sm sm:flex ${chipPositions[index % chipPositions.length]} ${floatAnim[index % floatAnim.length]}`}
                 style={{ animationDelay: `${(index % 4) * 0.5}s` }}
               >
                 {chip.type === "icon" ? (
-                  <Icon name={chip.value} className="h-3.5 w-3.5 text-maroon" />
+                  <Icon name={chip.value} className="h-3.5 w-3.5 text-coral" />
                 ) : (
                   chip.value
                 )}

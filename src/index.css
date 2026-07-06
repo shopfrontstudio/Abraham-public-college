@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-heading: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 
-  /* Navy and gold are sampled from the official school crest. */
-  --color-cream: #fdf8ee;
-  --color-cream-dark: #f6ebd6;
+  /* "School day" palette: crest navy for trust, marigold sun for energy,
+     sky tints for calm, a coral pop for warmth — on near-white paper. */
+  --color-paper: #fefefc;
+  --color-sky: #eaf4fe;
+  --color-sky-deep: #c9e4fb;
   --color-navy: #14213d;
   --color-navy-dark: #0c1428;
-  --color-maroon: #7a1e2c;
-  --color-maroon-dark: #591520;
-  --color-gold: #c9962e;
-  --color-gold-light: #ecd9a8;
-  --color-blue-soft: #dceeff;
-  --color-green-soft: #e8f5e9;
-  --color-sage: #6b8f71;
-  --color-ink: #1f2933;
+  --color-sun: #ffb81c;
+  --color-sun-dark: #e8a200;
+  --color-sun-light: #ffefc9;
+  --color-coral: #e14b26;
+  --color-coral-dark: #c23d1e;
+  --color-sage: #3e8e63;
+  --color-mint: #dff3e6;
+  --color-ink: #22303f;
+
+  /* Hard offset "sticker" shadows — the design system's signature. */
+  --shadow-sticker: 6px 6px 0 0 #14213d;
+  --shadow-sticker-sm: 3px 3px 0 0 #14213d;
+  --shadow-sticker-sun: 6px 6px 0 0 #ffb81c;
 
   --animate-float-slow: float 6s ease-in-out infinite;
   --animate-float-medium: float 5s ease-in-out infinite;
   --animate-fade-up: fade-up 0.7s ease-out both;
-  --animate-aurora-one: aurora-drift-one 22s ease-in-out infinite alternate;
-  --animate-aurora-two: aurora-drift-two 26s ease-in-out infinite alternate;
   --animate-ripple: ripple 0.6s ease-out;
 
   @keyframes float {
@@ -46,28 +51,6 @@
     }
   }
 
-  @keyframes aurora-drift-one {
-    0% {
-      transform: translate(-8%, -6%) scale(1);
-      opacity: 0.55;
-    }
-    100% {
-      transform: translate(10%, 4%) scale(1.15);
-      opacity: 0.8;
-    }
-  }
-
-  @keyframes aurora-drift-two {
-    0% {
-      transform: translate(6%, 2%) scale(1.1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: translate(-10%, -4%) scale(0.95);
-      opacity: 0.45;
-    }
-  }
-
   @keyframes ripple {
     from {
       transform: scale(0);
@@ -85,18 +68,18 @@ html {
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-body);
 }
 
 ::selection {
-  background-color: var(--color-gold);
+  background-color: var(--color-sun);
   color: var(--color-navy-dark);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-coral);
   outline-offset: 3px;
 }
 
@@ -106,6 +89,19 @@ body {
 #admissions,
 #contact {
   scroll-margin-top: 5.5rem;
+}
+
+/* Marker-pen highlight under key words — the headline's signature accent.
+   Sits on the lower half of the glyphs so text stays fully legible. */
+.hl-sun {
+  background-image: linear-gradient(
+    180deg,
+    transparent 58%,
+    color-mix(in srgb, var(--color-sun) 75%, transparent) 58%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-inline: 0.06em;
 }
 
 /* Faint dot grid used as a subtle background texture on select sections. */
@@ -135,16 +131,9 @@ body {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.03;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.text-gradient-gold {
-  background: linear-gradient(100deg, var(--color-gold) 0%, var(--color-maroon) 90%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 /* Soft line-grid backdrop that fades out toward the section edges so it
@@ -188,7 +177,7 @@ body {
 .spotlight-card__glow {
   background: radial-gradient(
     280px circle at var(--spot-x) var(--spot-y),
-    color-mix(in srgb, var(--color-gold) 35%, transparent),
+    color-mix(in srgb, var(--color-sun) 30%, transparent),
     transparent 70%
   );
 }
@@ -227,9 +216,7 @@ body {
 }
 
 /* Soft radial glow centered behind a heading, for quiet hierarchy on
-   sections that otherwise have no background treatment of their own.
-   A decorative ::before layer, not a mask — never touches the heading's
-   own legibility. Reserved for a couple of headings, not applied globally. */
+   sections that otherwise have no background treatment of their own. */
 .heading-glow {
   position: relative;
   isolation: isolate;
@@ -243,7 +230,7 @@ body {
   pointer-events: none;
   background: radial-gradient(
     closest-side,
-    color-mix(in srgb, var(--color-gold) 22%, transparent),
+    color-mix(in srgb, var(--color-sun) 26%, transparent),
     transparent 72%
   );
   filter: blur(28px);
