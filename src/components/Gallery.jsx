@@ -59,6 +59,14 @@ function GallerySticker({ category, onOpen }) {
       <div className={`absolute inset-0 bg-gradient-to-br ${style.gradient}`} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.18),transparent_32%),linear-gradient(to_top,rgba(0,0,0,0.6),transparent_62%)]" />
 
+      <span
+        className={`absolute left-3 top-3 z-30 inline-flex -rotate-3 items-center gap-1.5 rounded-sm px-4 py-2.5 font-body text-xs font-black uppercase tracking-[0.18em] shadow-lg shadow-navy/20 ring-1 ring-white/70 md:text-sm ${style.tape}`}
+      >
+        <span className="absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 rotate-1 rounded-sm bg-white/45 shadow-sm" aria-hidden="true" />
+        <CategoryIcon className="relative h-3.5 w-3.5" aria-hidden="true" />
+        <span className="relative">{category.label}</span>
+      </span>
+
       {hasPhotos ? (
         <div className="absolute inset-0">
           {previewPhotos.map((item, index) => (
@@ -81,13 +89,6 @@ function GallerySticker({ category, onOpen }) {
             />
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/75 via-navy-deep/10 to-transparent" />
-          <span
-            className={`absolute left-3 top-3 z-30 inline-flex -rotate-3 items-center gap-1.5 rounded-sm px-4 py-2.5 font-body text-xs font-black uppercase tracking-[0.18em] shadow-lg shadow-navy/20 ring-1 ring-white/70 md:text-sm ${style.tape}`}
-          >
-            <span className="absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 rotate-1 rounded-sm bg-white/45 shadow-sm" aria-hidden="true" />
-            <CategoryIcon className="relative h-3.5 w-3.5" aria-hidden="true" />
-            <span className="relative">{category.label}</span>
-          </span>
         </div>
       ) : (
         <div className="absolute inset-0 opacity-80 transition-transform duration-500 group-hover:scale-105">
@@ -96,21 +97,17 @@ function GallerySticker({ category, onOpen }) {
         </div>
       )}
 
-      <span className={`absolute ${hasPhotos ? "right-4 top-4" : "left-4 top-4"} z-20 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-body text-xs font-bold shadow-sm ${style.chip}`}>
-        <CategoryIcon className="h-4 w-4" aria-hidden="true" />
-        {hasPhotos ? `${category.items.length} photos` : "Sticker"}
-      </span>
-
-      <span className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between gap-3">
-        <span className="font-body text-xl font-black leading-tight text-white drop-shadow md:text-2xl">
-          {category.label}
-        </span>
-        {hasPhotos && (
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/90 text-navy shadow-sm transition-transform duration-300 group-hover:translate-x-1">
+      {hasPhotos && (
+        <>
+          <span className={`absolute right-4 top-4 z-20 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-body text-xs font-bold shadow-sm ${style.chip}`}>
+            <CategoryIcon className="h-4 w-4" aria-hidden="true" />
+            {category.items.length} photos
+          </span>
+          <span className="absolute bottom-5 right-5 z-20 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/90 text-navy shadow-sm transition-transform duration-300 group-hover:translate-x-1">
             <Camera className="h-4 w-4" aria-hidden="true" />
           </span>
-        )}
-      </span>
+        </>
+      )}
     </button>
   );
 }
