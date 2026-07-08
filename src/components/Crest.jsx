@@ -83,28 +83,34 @@ function Crest({ className = "", title = "Abraham Public College crest" }) {
       />
       <text
         x="200"
-        y="132"
-        textAnchor="middle"
-        fill={NAVY}
-        fontFamily="Fraunces, Georgia, serif"
-        fontSize="24"
-        fontWeight="700"
-        letterSpacing="1"
-      >
-        ABRAHAM
-      </text>
-      <text
-        x="200"
-        y="148"
+        y="124"
         textAnchor="middle"
         fill={NAVY}
         fontFamily="Manrope, system-ui, sans-serif"
-        fontSize="11"
-        fontWeight="700"
-        letterSpacing="2.5"
+        fontSize="11.5"
+        fontWeight="800"
+        letterSpacing="0.5"
       >
-        — PUBLIC COLLEGE —
+        SIMPLE LEARNING
       </text>
+      <text
+        x="200"
+        y="138"
+        textAnchor="middle"
+        fill={NAVY}
+        fontFamily="Manrope, system-ui, sans-serif"
+        fontSize="11.5"
+        fontWeight="800"
+        letterSpacing="0.5"
+      >
+        STRONG VALUES
+      </text>
+      <path
+        d="M166 146 L234 146 M158 146 l4 -2.5 v5 z M242 146 l-4 -2.5 v5 z"
+        stroke={GOLD}
+        strokeWidth="1.2"
+        fill={GOLD}
+      />
 
       {/* Star */}
       <path
@@ -125,13 +131,13 @@ function Crest({ className = "", title = "Abraham Public College crest" }) {
         x="200"
         y="278"
         textAnchor="middle"
-        fill={IVORY}
+        fill={GOLD_BRIGHT}
         fontFamily="Manrope, system-ui, sans-serif"
         fontSize="13"
-        fontWeight="600"
+        fontWeight="700"
         letterSpacing="3"
       >
-        ESTD. 2004
+        — ESTD. 2004 —
       </text>
 
       {/* Circular lettering — drawn last so laurels/shield never cover it */}
@@ -149,12 +155,12 @@ function Crest({ className = "", title = "Abraham Public College crest" }) {
       <text
         fill={GOLD_BRIGHT}
         fontFamily="Manrope, system-ui, sans-serif"
-        fontSize="19"
+        fontSize="16"
         fontWeight="700"
-        letterSpacing="3"
+        letterSpacing="1.5"
       >
         <textPath href="#crest-arc-bottom" startOffset="50%" textAnchor="middle">
-          GOVT. RECOGNIZED
+          DISCIPLINE • KNOWLEDGE • CARE
         </textPath>
       </text>
     </svg>
