@@ -3,6 +3,8 @@
 // src/lib/icons.jsx.
 export const content = {
   school: {
+    nameTop: "ABRAHAM",
+    nameBottom: "PUBLIC COLLEGE",
     name: "Abraham Public College",
     location: "Lucknow, Uttar Pradesh",
     tagline: "Simple Learning. Strong Values.",
@@ -18,16 +20,19 @@ export const content = {
   navCta: "Enquire Now",
 
   hero: {
+    welcomePill: "Welcome To",
+    headlineLead: "Simple Learning.",
+    headlineAccent: "Strong Values.",
     headline: "Simple Learning. Strong Values.",
     subheadline:
       "Abraham Public College is a local school in Lucknow focused on discipline, basic education, care and personal attention for every child.",
     primaryCta: "Admission Enquiry",
     secondaryCta: "Contact School",
     trustBadges: [
-      "Local School in Lucknow",
-      "Personal Attention",
-      "Discipline & Good Habits",
-      "Parent-Friendly",
+      { icon: "MapPin", label: "Local School in Lucknow" },
+      { icon: "Users", label: "Personal Attention" },
+      { icon: "ShieldCheck", label: "Discipline & Good Habits" },
+      { icon: "Heart", label: "Parent Friendly" },
     ],
     floatingChips: [
       { type: "text", value: "ABC" },
@@ -42,6 +47,7 @@ export const content = {
   },
 
   about: {
+    label: "About Us",
     heading: "About Abraham Public College",
     copy: "Abraham Public College is a humble school built with the aim of giving children a caring environment where they can learn, grow and develop good habits. Our focus is on basic education, discipline, respect, confidence and personal attention.",
     quote: "Our aim is to help every child learn with discipline, confidence and care.",
@@ -60,30 +66,45 @@ export const content = {
         { icon: "Star", label: "Confidence" },
       ],
     },
+    promise: {
+      title: "Our Promise",
+      quote: "Our aim is to help every child learn with discipline, confidence and care.",
+      points: [
+        { icon: "ShieldCheck", label: "Discipline" },
+        { icon: "HeartHandshake", label: "Care" },
+        { icon: "Handshake", label: "Respect" },
+        { icon: "Star", label: "Confidence" },
+      ],
+    },
   },
 
   approach: {
+    label: "What We Focus On",
     heading: "What We Focus On",
     items: [
       {
         icon: "BookOpen",
+        accent: "blue",
         title: "Basic Education",
         description:
           "Helping children build strong foundations in reading, writing, numbers and everyday learning.",
       },
       {
         icon: "ShieldCheck",
+        accent: "green",
         title: "Discipline & Good Habits",
         description:
           "Encouraging punctuality, respect, cleanliness and responsible behaviour.",
       },
       {
         icon: "HeartHandshake",
+        accent: "gold",
         title: "Personal Attention",
         description: "Supporting each child with care and guidance.",
       },
       {
         icon: "Users",
+        accent: "maroon",
         title: "Parent Connection",
         description: "Keeping parents involved in the child's learning journey.",
       },
@@ -102,13 +123,14 @@ export const content = {
 
   admissions: {
     heading: "Admission Enquiry",
+    subtitle: "Start your child's admission enquiry today.",
     copy: "Parents can contact the school to know more about classes, admission process, fees and required documents.",
     ctaText: "Start your child's admission enquiry today.",
     steps: [
-      { title: "Contact the school", description: "Reach out by phone or the enquiry form." },
-      { title: "Visit and discuss", description: "Meet us and see the school in person." },
-      { title: "Submit details", description: "Share your child's information and documents." },
-      { title: "Confirm admission", description: "Complete the process and join the school." },
+      "Contact the school",
+      "Visit and discuss",
+      "Submit details",
+      "Confirm admission",
     ],
     form: {
       fields: {
@@ -180,6 +202,12 @@ export const content = {
 
   contact: {
     heading: "Contact Abraham Public College",
+    cards: [
+      { icon: "MapPin", label: "Address", value: "Abraham Public College, Lucknow, Uttar Pradesh" },
+      { icon: "Phone", label: "Phone", value: "Add phone number here" },
+      { icon: "Mail", label: "Email", value: "Add email here" },
+      { icon: "Clock", label: "Timings", value: "Add timings here" },
+    ],
     address: "Abraham Public College, Lucknow, Uttar Pradesh",
     phone: "Add phone number here",
     email: "Add email here",
@@ -191,6 +219,7 @@ export const content = {
   footer: {
     name: "Abraham Public College",
     tagline: "Simple Learning. Strong Values.",
+    quickLinksTitle: "Quick Links",
     quickLinks: [
       { label: "Home", href: "#home" },
       { label: "About", href: "#about" },
@@ -199,5 +228,10 @@ export const content = {
     ],
     contactPlaceholder: "Add phone / email here",
     copyright: "© 2026 Abraham Public College. All rights reserved.",
+    socials: [
+      { icon: "Globe", label: "Website", href: "#" },
+      { icon: "Camera", label: "Photos", href: "#" },
+      { icon: "MapPin", label: "Location", href: "#" },
+    ],
   },
 };
