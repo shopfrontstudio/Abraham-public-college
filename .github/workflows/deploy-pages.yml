@@ -1,5 +1,6 @@
 name: Deploy to GitHub Pages
 
+# Redeploy trigger: 2026-07-08 gallery refresh
 on:
   push:
     branches: [main]
