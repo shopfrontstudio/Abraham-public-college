@@ -9,26 +9,31 @@ const categoryStyles = {
     icon: Building2,
     gradient: "from-navy to-navy-deep",
     chip: "bg-white/90 text-navy",
+    tape: "bg-blue-card text-navy",
   },
   maroon: {
     icon: School,
     gradient: "from-maroon to-maroon-dark",
     chip: "bg-white/90 text-maroon",
+    tape: "bg-cream text-maroon",
   },
   gold: {
     icon: Users,
     gradient: "from-gold to-[#a87c2a]",
     chip: "bg-navy/90 text-cream",
+    tape: "bg-navy text-cream",
   },
   green: {
     icon: MapPinned,
     gradient: "from-green-accent to-navy",
     chip: "bg-white/90 text-green-accent",
+    tape: "bg-yellow-soft text-navy",
   },
   blue: {
     icon: Sparkles,
     gradient: "from-blue-accent to-navy",
     chip: "bg-white/90 text-blue-accent",
+    tape: "bg-cream text-navy",
   },
 };
 
@@ -48,11 +53,11 @@ function GallerySticker({ category, onOpen }) {
     <button
       type="button"
       onClick={() => hasPhotos && onOpen(category)}
-      className={`group relative aspect-[4/3] w-full overflow-hidden rounded-2xl text-left shadow-lg shadow-navy/10 ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-navy/15 hover:ring-gold/45 focus-visible:ring-2 focus-visible:ring-gold ${hasPhotos ? "cursor-pointer" : "cursor-default"}`}
+      className={`group relative aspect-[1.16/1] w-full overflow-hidden rounded-2xl text-left shadow-xl shadow-navy/12 ring-1 ring-navy/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/18 hover:ring-gold/55 focus-visible:ring-2 focus-visible:ring-gold ${hasPhotos ? "cursor-pointer" : "cursor-default"}`}
       aria-label={hasPhotos ? `Open ${category.label} gallery` : category.label}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${style.gradient}`} />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-white/10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.18),transparent_32%),linear-gradient(to_top,rgba(0,0,0,0.6),transparent_62%)]" />
 
       {hasPhotos ? (
         <div className="absolute inset-0">
@@ -63,7 +68,7 @@ function GallerySticker({ category, onOpen }) {
               alt=""
               loading="lazy"
               aria-hidden="true"
-              className={`absolute left-1/2 top-1/2 h-[70%] w-[76%] rounded-xl border-2 border-white/80 object-cover shadow-2xl transition-all duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 ${
+              className={`absolute left-1/2 top-1/2 h-[78%] w-[82%] rounded-xl border-2 border-white/85 object-cover shadow-2xl transition-all duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 ${
                 index === 0
                   ? "-translate-x-1/2 -translate-y-1/2 rotate-[-7deg] group-hover:-translate-x-[58%] group-hover:-translate-y-[54%] group-hover:rotate-[-13deg]"
                   : index === 1
@@ -76,6 +81,13 @@ function GallerySticker({ category, onOpen }) {
             />
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/75 via-navy-deep/10 to-transparent" />
+          <span
+            className={`absolute left-3 top-3 z-30 inline-flex -rotate-3 items-center gap-1.5 rounded-sm px-4 py-2 font-body text-xs font-black uppercase tracking-[0.18em] shadow-lg shadow-navy/20 ring-1 ring-white/70 ${style.tape}`}
+          >
+            <span className="absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 rotate-1 rounded-sm bg-white/45 shadow-sm" aria-hidden="true" />
+            <CategoryIcon className="relative h-3.5 w-3.5" aria-hidden="true" />
+            <span className="relative">{category.label}</span>
+          </span>
         </div>
       ) : (
         <div className="absolute inset-0 opacity-80 transition-transform duration-500 group-hover:scale-105">
@@ -84,13 +96,13 @@ function GallerySticker({ category, onOpen }) {
         </div>
       )}
 
-      <span className={`absolute left-4 top-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-body text-xs font-bold shadow-sm ${style.chip}`}>
+      <span className={`absolute ${hasPhotos ? "right-4 top-4" : "left-4 top-4"} z-20 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-body text-xs font-bold shadow-sm ${style.chip}`}>
         <CategoryIcon className="h-4 w-4" aria-hidden="true" />
         {hasPhotos ? `${category.items.length} photos` : "Sticker"}
       </span>
 
-      <span className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
-        <span className="font-body text-sm font-bold text-white drop-shadow md:text-base">
+      <span className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between gap-3">
+        <span className="font-body text-lg font-black leading-tight text-white drop-shadow md:text-xl">
           {category.label}
         </span>
         {hasPhotos && (
@@ -201,11 +213,13 @@ function Gallery() {
   const categories = gallery.categories ?? [];
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 md:py-28">
-      <div aria-hidden="true" className="bg-dot-grid absolute inset-0 opacity-45" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-cream/80 to-transparent" aria-hidden="true" />
+    <section className="relative overflow-hidden bg-cream py-12 md:py-16">
+      <div aria-hidden="true" className="bg-dot-grid absolute inset-0 opacity-55" />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream-deep to-transparent" aria-hidden="true" />
+      <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-gold-soft/50 blur-3xl" aria-hidden="true" />
+      <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-blue-card/65 blur-3xl" aria-hidden="true" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <span className="font-body text-sm font-semibold uppercase tracking-widest text-maroon">
@@ -220,13 +234,17 @@ function Gallery() {
           </div>
         </Reveal>
 
-        <RevealGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5" stagger={0.07}>
-          {categories.map((category) => (
-            <RevealItem key={category.label}>
-              <GallerySticker category={category} onOpen={setSelectedCategory} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <div className="relative mt-8 rounded-[2rem] border border-gold/35 bg-white/65 p-4 shadow-2xl shadow-navy/10 backdrop-blur-sm md:mt-10 md:p-6">
+          <div className="absolute -top-4 left-8 h-8 w-28 -rotate-3 rounded-sm bg-white/65 shadow-sm ring-1 ring-gold/25" aria-hidden="true" />
+          <div className="absolute -top-4 right-10 h-8 w-28 rotate-3 rounded-sm bg-white/65 shadow-sm ring-1 ring-gold/25" aria-hidden="true" />
+          <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6" stagger={0.07}>
+            {categories.map((category) => (
+              <RevealItem key={category.label}>
+                <GallerySticker category={category} onOpen={setSelectedCategory} />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
       </div>
 
       {selectedCategory && (
