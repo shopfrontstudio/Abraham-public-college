@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { content } from "../content";
-import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import { Icon } from "../lib/icons";
+import Reveal from "./Reveal";
 import Magnetic from "./Magnetic";
 import Ripple from "./Ripple";
 
@@ -14,8 +15,11 @@ const initialForm = {
   message: "",
 };
 
+const inputClass =
+  "w-full rounded-lg border border-navy/15 bg-white px-4 py-2.5 font-body text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/15";
+
 function Admissions() {
-  const { admissions } = content;
+  const { admissions, homeFeeling } = content;
   const { fields, submitLabel, successMessage } = admissions.form;
   const [formData, setFormData] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
@@ -32,61 +36,73 @@ function Admissions() {
   };
 
   return (
-    <section id="admissions" className="bg-grid-lines bg-cream-dark py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="admissions" className="bg-cream py-20 md:py-24">
+      <div className="mx-auto grid max-w-6xl items-stretch gap-8 px-6 lg:grid-cols-[2fr_3fr]">
+        {/* Left: warm "feels like home" card */}
         <Reveal>
-          <h2 className="text-center font-heading text-3xl font-semibold text-navy md:text-4xl">
-            {admissions.heading}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center font-body text-lg leading-relaxed text-ink/80">
-            {admissions.copy}
-          </p>
+          <div className="h-full rounded-3xl bg-gradient-to-br from-yellow-soft to-cream-deep p-8 shadow-lg shadow-navy/5 md:p-10">
+            <h2 className="font-heading text-2xl font-bold leading-snug text-navy md:text-3xl">
+              {homeFeeling.heading}
+            </h2>
+            <p className="mt-4 font-body leading-relaxed text-muted">
+              {homeFeeling.copy}
+            </p>
+
+            <ul className="mt-8 grid grid-cols-3 gap-4">
+              {homeFeeling.points.map((point) => (
+                <li key={point.label} className="flex flex-col items-center gap-3 text-center">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-gold shadow-md shadow-navy/10">
+                    <Icon name={point.icon} className="h-6 w-6" />
+                  </span>
+                  <span className="font-body text-xs font-semibold leading-snug text-navy">
+                    {point.label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-5">
-          <Reveal className="md:col-span-2" delay={0.1}>
-            <div className="h-full rounded-3xl bg-navy p-8 text-cream">
-              <h3 className="font-heading text-xl font-semibold">
-                How admission works
-              </h3>
-              <RevealGroup as="ol" className="mt-6 space-y-6" stagger={0.12}>
+        {/* Right: admission enquiry card — steps beside the form */}
+        <Reveal delay={0.15}>
+          <div className="h-full rounded-3xl bg-white p-8 shadow-lg shadow-navy/5 md:p-10">
+            <span className="flex items-center gap-3">
+              <span aria-hidden="true" className="h-0.5 w-6 rounded bg-gold" />
+              <h2 className="font-heading text-2xl font-bold text-navy md:text-3xl">
+                {admissions.heading}
+              </h2>
+            </span>
+            <p className="mt-2 font-body text-sm text-muted">{admissions.subtitle}</p>
+
+            <div className="mt-8 grid gap-8 sm:grid-cols-[1fr_1.6fr]">
+              <ol className="relative space-y-7">
+                {/* Dotted connector line through the numbered steps. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-4 left-4 top-4 w-px border-l-2 border-dotted border-maroon/30"
+                />
                 {admissions.steps.map((step, index) => (
-                  <RevealItem as="li" key={step.title} className="flex gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold/50 font-heading text-sm font-semibold text-gold">
+                  <li key={step} className="relative flex items-center gap-4">
+                    <span className="z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-maroon font-body text-sm font-bold text-white">
                       {index + 1}
                     </span>
-                    <div>
-                      <p className="font-body font-semibold text-cream">
-                        {step.title}
-                      </p>
-                      <p className="mt-1 font-body text-sm text-cream/75">
-                        {step.description}
-                      </p>
-                    </div>
-                  </RevealItem>
+                    <span className="font-body text-sm font-semibold text-ink">{step}</span>
+                  </li>
                 ))}
-              </RevealGroup>
-            </div>
-          </Reveal>
-
-          <Reveal className="md:col-span-3" delay={0.2}>
-            <div className="h-full rounded-3xl border border-gold-light bg-white p-8 shadow-sm">
-              <p className="font-heading text-lg font-medium text-maroon">
-                {admissions.ctaText}
-              </p>
+              </ol>
 
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div
                     key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     role="status"
-                    className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-gold bg-cream px-6 py-10 text-center"
+                    className="flex flex-col items-center justify-center gap-3 rounded-2xl bg-green-soft px-6 py-10 text-center"
                   >
-                    <CheckCircle2 className="h-10 w-10 text-maroon" aria-hidden="true" />
-                    <p className="font-body text-navy">{successMessage}</p>
+                    <CheckCircle2 className="h-10 w-10 text-green-accent" aria-hidden="true" />
+                    <p className="font-body font-semibold text-navy">{successMessage}</p>
                   </motion.div>
                 ) : (
                   <motion.form
@@ -95,91 +111,78 @@ function Admissions() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onSubmit={handleSubmit}
-                    className="mt-6 space-y-5"
+                    className="space-y-4"
                   >
-                    <div>
-                      <label htmlFor="parentName" className="mb-1 block font-body text-sm text-ink/70">
-                        {fields.parentName}
-                      </label>
-                      <input
-                        id="parentName"
-                        name="parentName"
-                        type="text"
-                        required
-                        value={formData.parentName}
-                        onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="studentName" className="mb-1 block font-body text-sm text-ink/70">
-                        {fields.studentName}
-                      </label>
-                      <input
-                        id="studentName"
-                        name="studentName"
-                        type="text"
-                        required
-                        value={formData.studentName}
-                        onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
-                      />
-                    </div>
-
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="classInterested" className="mb-1 block font-body text-sm text-ink/70">
-                          {fields.classInterested}
-                        </label>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <label className="block">
+                        <span className="sr-only">{fields.parentName}</span>
                         <input
-                          id="classInterested"
+                          name="parentName"
+                          type="text"
+                          required
+                          placeholder={fields.parentName}
+                          value={formData.parentName}
+                          onChange={handleChange}
+                          className={inputClass}
+                        />
+                      </label>
+                      <label className="block">
+                        <span className="sr-only">{fields.studentName}</span>
+                        <input
+                          name="studentName"
+                          type="text"
+                          required
+                          placeholder={fields.studentName}
+                          value={formData.studentName}
+                          onChange={handleChange}
+                          className={inputClass}
+                        />
+                      </label>
+                      <label className="block">
+                        <span className="sr-only">{fields.classInterested}</span>
+                        <input
                           name="classInterested"
                           type="text"
                           required
+                          placeholder={fields.classInterested}
                           value={formData.classInterested}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                          className={inputClass}
                         />
-                      </div>
-
-                      <div>
-                        <label htmlFor="phone" className="mb-1 block font-body text-sm text-ink/70">
-                          {fields.phone}
-                        </label>
+                      </label>
+                      <label className="block">
+                        <span className="sr-only">{fields.phone}</span>
                         <input
-                          id="phone"
                           name="phone"
                           type="tel"
                           required
+                          placeholder={fields.phone}
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                          className={inputClass}
                         />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="mb-1 block font-body text-sm text-ink/70">
-                        {fields.message}
                       </label>
+                    </div>
+                    <label className="block">
+                      <span className="sr-only">{fields.message}</span>
                       <textarea
-                        id="message"
                         name="message"
-                        rows={4}
+                        rows={3}
+                        placeholder={fields.message}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-gold-light bg-cream px-4 py-3 font-body text-ink transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+                        className={inputClass}
                       />
-                    </div>
+                    </label>
 
                     <Magnetic strength={0.2} className="block w-full">
-                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-full">
+                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-lg">
                         <button
                           type="submit"
-                          className="w-full rounded-full bg-maroon px-6 py-3 font-body font-medium text-cream shadow-sm transition-shadow hover:shadow-lg hover:shadow-maroon/20"
+                          className="flex w-full items-center justify-center gap-2 rounded-lg bg-maroon px-6 py-3 font-body font-bold text-white shadow-md shadow-maroon/20 transition-all hover:-translate-y-0.5 hover:bg-maroon-dark"
                         >
                           {submitLabel}
+                          <ArrowRight className="h-4 w-4" aria-hidden="true" />
                         </button>
                       </Ripple>
                     </Magnetic>
@@ -187,8 +190,8 @@ function Admissions() {
                 )}
               </AnimatePresence>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

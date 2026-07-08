@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Manrope", system-ui, -apple-system, sans-serif;
 
-  --color-cream: #fff8ec;
-  --color-cream-dark: #f7ecd8;
+  /* Prospectus palette from the reference mockup: deep navy header/footer,
+     maroon CTAs, gold accents, cream page, soft blue + soft yellow sections. */
   --color-navy: #102a43;
-  --color-navy-dark: #0a1c2e;
-  --color-maroon: #7a1e2c;
-  --color-maroon-dark: #591520;
+  --color-navy-deep: #08213f;
+  --color-maroon: #8a1e2d;
+  --color-maroon-dark: #6d1622;
   --color-gold: #d6a84f;
-  --color-gold-light: #efdcae;
-  --color-blue-soft: #dceeff;
-  --color-green-soft: #e8f5e9;
-  --color-ink: #1f2933;
+  --color-gold-soft: #f3e2bd;
+  --color-cream: #fff8ec;
+  --color-cream-deep: #f7ecd8;
+  --color-blue-soft: #eff8ff;
+  --color-blue-card: #dceefb;
+  --color-yellow-soft: #fff4d8;
+  --color-green-soft: #e3f2e6;
+  --color-green-accent: #4c9a63;
+  --color-blue-accent: #3d7fb8;
+  --color-pink-accent: #c94f63;
+  --color-ink: #102033;
+  --color-muted: #5f6b7a;
 
   --animate-float-slow: float 6s ease-in-out infinite;
   --animate-float-medium: float 5s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s ease-out both;
-  --animate-aurora-one: aurora-drift-one 22s ease-in-out infinite alternate;
-  --animate-aurora-two: aurora-drift-two 26s ease-in-out infinite alternate;
   --animate-ripple: ripple 0.6s ease-out;
 
   @keyframes float {
@@ -30,39 +35,6 @@
     }
     50% {
       transform: translateY(-10px) rotate(var(--tw-rotate, 0deg));
-    }
-  }
-
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes aurora-drift-one {
-    0% {
-      transform: translate(-8%, -6%) scale(1);
-      opacity: 0.55;
-    }
-    100% {
-      transform: translate(10%, 4%) scale(1.15);
-      opacity: 0.8;
-    }
-  }
-
-  @keyframes aurora-drift-two {
-    0% {
-      transform: translate(6%, 2%) scale(1.1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: translate(-10%, -4%) scale(0.95);
-      opacity: 0.45;
     }
   }
 
@@ -90,7 +62,7 @@ body {
 
 ::selection {
   background-color: var(--color-gold);
-  color: var(--color-navy-dark);
+  color: var(--color-navy-deep);
 }
 
 :focus-visible {
@@ -106,66 +78,18 @@ body {
   scroll-margin-top: 5.5rem;
 }
 
-/* Faint dot grid used as a subtle background texture on select sections. */
+/* Faint dot grid — the mockup's dotted decorative patterns. */
 .bg-dot-grid {
   background-image: radial-gradient(
     circle,
-    color-mix(in srgb, var(--color-navy) 14%, transparent) 1px,
-    transparent 1.5px
+    color-mix(in srgb, var(--color-navy) 16%, transparent) 1.5px,
+    transparent 2px
   );
-  background-size: 22px 22px;
+  background-size: 20px 20px;
 }
 
-/* Faint notebook-rule pattern for a warm, educational texture. */
-.bg-notebook-lines {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    color-mix(in srgb, var(--color-navy) 8%, transparent) 28px
-  );
-}
-
-/* Whole-page film-grain texture — keeps flat colour fields from feeling
-   sterile. Fixed + blend-mode so it costs one paint layer, not per-section. */
-.bg-grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.text-gradient-gold {
-  background: linear-gradient(100deg, var(--color-gold) 0%, var(--color-maroon) 90%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/* Soft line-grid backdrop that fades out toward the section edges so it
-   reads as texture, not a spreadsheet. */
-.bg-grid-lines {
-  background-image:
-    repeating-linear-gradient(
-      to right,
-      color-mix(in srgb, var(--color-navy) 7%, transparent) 0 1px,
-      transparent 1px 64px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-navy) 7%, transparent) 0 1px,
-      transparent 1px 64px
-    );
-  mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
-}
-
-/* Cursor-lit glow for spotlight-hover cards. --spot-x/--spot-y are set via
-   JS on pointermove (mouse only); default to center so touch/keyboard users
-   still see a resting glow rather than nothing. */
+/* Cursor-lit glow for spotlight-hover cards (mouse only; resting state
+   elsewhere). */
 .spotlight-card {
   --spot-x: 50%;
   --spot-y: 50%;
@@ -173,8 +97,8 @@ body {
 
 .spotlight-card__glow {
   background: radial-gradient(
-    280px circle at var(--spot-x) var(--spot-y),
-    color-mix(in srgb, var(--color-gold) 35%, transparent),
+    260px circle at var(--spot-x) var(--spot-y),
+    color-mix(in srgb, var(--color-gold) 22%, transparent),
     transparent 70%
   );
 }
@@ -184,8 +108,7 @@ body {
   opacity: 1;
 }
 
-/* Diagonal shine sweep for signature CTAs — reserved for one accent button
-   style, not applied globally. */
+/* Diagonal shine sweep for the primary CTA style. */
 .btn-shine {
   position: relative;
   overflow: hidden;
@@ -200,7 +123,7 @@ body {
   background: linear-gradient(
     115deg,
     transparent 30%,
-    color-mix(in srgb, white 55%, transparent) 50%,
+    color-mix(in srgb, white 45%, transparent) 50%,
     transparent 70%
   );
   transform: translateX(-120%);
