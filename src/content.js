@@ -149,6 +149,60 @@ export const content = {
   gallery: {
     heading: "School Moments",
     intro: "A glimpse of school trips, classroom creativity and special celebrations.",
+    categories: [
+      { label: "School Building", accent: "navy", items: [] },
+      { label: "Classroom", accent: "maroon", items: [] },
+      { label: "Students", accent: "gold", items: [] },
+      {
+        label: "Trips",
+        accent: "green",
+        sticker: "Trips",
+        items: [
+          {
+            label: "Learning trip with classmates",
+            image: "/gallery/trip-water-park.jpg",
+            alt: "Abraham Public College students posing together during a school trip",
+          },
+          {
+            label: "Outdoor visit and group day",
+            image: "/gallery/trip-nature-hut.jpg",
+            alt: "Students and teacher seated together during a school outing",
+          },
+        ],
+      },
+      {
+        label: "Activities",
+        accent: "blue",
+        sticker: "Activities",
+        items: [
+          {
+            label: "Colouring activity",
+            image: "/gallery/activity-colouring-class.jpg",
+            alt: "Young students holding completed colouring sheets in class",
+          },
+          {
+            label: "Art showcase",
+            image: "/gallery/activity-art-showcase.jpg",
+            alt: "Students showing their artwork in school uniform",
+          },
+          {
+            label: "Creative classroom work",
+            image: "/gallery/activity-classroom-art.jpg",
+            alt: "Children displaying art sheets during a classroom activity",
+          },
+          {
+            label: "Christmas celebration",
+            image: "/gallery/activity-christmas-celebration.jpg",
+            alt: "Students gathered around Christmas decorations at school",
+          },
+          {
+            label: "Mothers Day celebration",
+            image: "/gallery/activity-mothers-day.jpg",
+            alt: "Student and teacher posing with a Mothers Day celebration frame",
+          },
+        ],
+      },
+    ],
     groups: [
       {
         label: "Trips",
