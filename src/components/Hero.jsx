@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValueEvent,
@@ -19,22 +19,21 @@ import SplitHeading from "./SplitHeading";
 const studentPhoto = `${import.meta.env.BASE_URL}gallery/students-14.jpg`;
 const activityPhoto = `${import.meta.env.BASE_URL}gallery/activity-art-showcase.jpg`;
 
-function HeroStory({ animated, mobileContinuation, photosStyle, reduceMotion, storyStyle }) {
+function HeroStory({ animated, mobileContinuation, photosStyle, reduceMotion }) {
   const { hero } = content;
 
   return (
     <motion.div
-      className={`relative z-10 mx-auto flex max-w-7xl items-center px-5 sm:px-6 lg:pt-24 ${animated ? "opacity-0" : ""} ${
+      className={`relative z-10 mx-auto flex max-w-7xl items-center px-5 sm:px-6 lg:pt-24 ${
         mobileContinuation
           ? "min-h-[100svh] pb-12 pt-[8.5rem]"
           : animated
             ? "min-h-[100svh] pb-12 pt-28 lg:pb-16"
             : "min-h-[92svh] pb-6 pt-[8.5rem] sm:pt-28 lg:pb-6 lg:pt-24"
       }`}
-      style={animated ? storyStyle : undefined}
-      initial={animated || reduceMotion ? false : { opacity: 0 }}
-      animate={animated ? undefined : { opacity: 1 }}
-      transition={{ duration: 0.8, ease: EASE }}
+      initial={animated ? { opacity: 0, y: 36 } : reduceMotion ? false : { opacity: 0 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: animated ? 0.58 : 0.8, ease: EASE }}
     >
       <div className="grid w-full items-center gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
         <div className="relative z-20 max-w-2xl">
@@ -141,6 +140,7 @@ function HeroStory({ animated, mobileContinuation, photosStyle, reduceMotion, st
 
 function Hero() {
   const introStageRef = useRef(null);
+  const [desktopStoryVisible, setDesktopStoryVisible] = useState(false);
   const reduceMotion = useReducedMotion();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const { headerVisible, progress, setHeaderVisible } = useIntro();
@@ -169,7 +169,7 @@ function Hero() {
   );
   const crestOpacity = useTransform(
     scrollYProgress,
-    isMobile ? [0, 0.76, 0.94] : [0, 0.88, 0.96],
+    isMobile ? [0, 0.76, 0.94] : [0, 0.74, 0.82],
     [1, 1, 0],
   );
   const introCopyOpacity = useTransform(
@@ -178,19 +178,23 @@ function Hero() {
     [0, 1, 1, 0],
   );
   const introCopyY = useTransform(scrollYProgress, [0, 0.22, 0.9], [20, 0, -22]);
-  const storyOpacity = useTransform(scrollYProgress, [0.44, 0.66, 1], [0, 1, 1]);
-  const storyY = useTransform(scrollYProgress, [0.44, 0.76, 1], [70, 0, 0]);
   const photosY = useTransform(scrollYProgress, [0.46, 0.78, 1], [150, 0, -12]);
   const scrollCueOpacity = useTransform(scrollYProgress, [0, 0.18, 0.34], [1, 1, 0]);
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     if (!playIntro) return;
     progress.set(value);
-    if (!isMobile) setHeaderVisible(value >= 0.79);
+    if (!isMobile) {
+      setDesktopStoryVisible(value >= 0.82);
+      setHeaderVisible(value >= 0.79);
+    }
   });
 
   useEffect(() => {
-    if (isMobile) setHeaderVisible(true);
+    if (isMobile) {
+      setDesktopStoryVisible(false);
+      setHeaderVisible(true);
+    }
     if (!playIntro) {
       progress.set(1);
       setHeaderVisible(true);
@@ -198,7 +202,7 @@ function Hero() {
   }, [isMobile, playIntro, progress, setHeaderVisible]);
 
   return (
-    <section id="home" className="royal-hero relative overflow-hidden bg-navy-deep">
+    <section id="home" className="royal-hero relative bg-navy-deep">
       <div
         ref={introStageRef}
         className={playIntro ? (isMobile ? "h-[150svh]" : "h-[180svh]") : "min-h-[92svh]"}
@@ -210,14 +214,16 @@ function Hero() {
 
           {playIntro && (
             <>
-              <motion.div
-                className="pointer-events-none absolute left-1/2 top-[44%] z-30 w-[min(68vw,20rem)] -translate-x-1/2 -translate-y-1/2 will-change-transform md:top-1/2 md:w-[min(72vw,29rem)]"
-                style={{ opacity: crestOpacity, scale: crestScale, x: crestX, y: crestY }}
-                aria-hidden="true"
-              >
-                <div className="royal-crest-glow absolute inset-[8%] rounded-full" />
-                <Crest className="relative w-full drop-shadow-[0_28px_55px_rgba(0,0,0,0.38)]" />
-              </motion.div>
+              {(isMobile || !desktopStoryVisible) && (
+                <motion.div
+                  className="pointer-events-none absolute left-1/2 top-[44%] z-30 w-[min(68vw,20rem)] -translate-x-1/2 -translate-y-1/2 will-change-transform md:top-1/2 md:w-[min(72vw,29rem)]"
+                  style={{ opacity: crestOpacity, scale: crestScale, x: crestX, y: crestY }}
+                  aria-hidden="true"
+                >
+                  <div className="royal-crest-glow absolute inset-[8%] rounded-full" />
+                  <Crest className="relative w-full drop-shadow-[0_28px_55px_rgba(0,0,0,0.38)]" />
+                </motion.div>
+              )}
 
               <motion.div
                 className="pointer-events-none absolute inset-x-6 top-[68%] z-20 text-center sm:top-[76%]"
@@ -245,13 +251,12 @@ function Hero() {
             </>
           )}
 
-          {(!playIntro || !isMobile) && (
+          {(!playIntro || (!isMobile && desktopStoryVisible)) && (
             <HeroStory
               animated={playIntro}
               mobileContinuation={false}
               photosStyle={{ y: photosY }}
               reduceMotion={reduceMotion}
-              storyStyle={{ opacity: storyOpacity, y: storyY }}
             />
           )}
         </div>
@@ -266,7 +271,6 @@ function Hero() {
             mobileContinuation
             photosStyle={undefined}
             reduceMotion={reduceMotion}
-            storyStyle={undefined}
           />
         </div>
       )}
