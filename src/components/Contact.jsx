@@ -2,6 +2,7 @@ import { MapPin, PhoneCall } from "lucide-react";
 import { content } from "../content";
 import { Icon } from "../lib/icons";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import SplitHeading from "./SplitHeading";
 import Magnetic from "./Magnetic";
 import Ripple from "./Ripple";
 
@@ -37,14 +38,12 @@ function Contact() {
     <section id="contact" className="relative overflow-hidden bg-navy py-20 text-white md:py-28">
       <div aria-hidden="true" className="royal-hero__texture absolute inset-0 opacity-55" />
       <div className="relative mx-auto max-w-7xl px-6">
-        <Reveal>
-          <span className="flex items-center gap-4">
-            <h2 className="font-heading text-4xl font-semibold text-white md:text-6xl">
-              {contact.heading}
-            </h2>
-            <span aria-hidden="true" className="hidden h-0.5 w-12 rounded bg-gold sm:block" />
-          </span>
-        </Reveal>
+        <span className="flex items-center gap-4">
+          <SplitHeading as="h2" className="font-heading text-4xl font-semibold text-white md:text-6xl">
+            {contact.heading}
+          </SplitHeading>
+          <span aria-hidden="true" className="hidden h-0.5 w-12 rounded bg-gold sm:block" />
+        </span>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
           <RevealGroup className="grid self-start auto-rows-min grid-cols-1 content-start gap-4 sm:grid-cols-2" stagger={0.08}>

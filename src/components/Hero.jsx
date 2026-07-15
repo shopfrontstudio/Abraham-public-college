@@ -14,6 +14,7 @@ import { useMediaQuery } from "../lib/use-media-query";
 import Magnetic from "./Magnetic";
 import Ripple from "./Ripple";
 import Crest from "./Crest";
+import SplitHeading from "./SplitHeading";
 
 const studentPhoto = `${import.meta.env.BASE_URL}gallery/students-14.jpg`;
 const activityPhoto = `${import.meta.env.BASE_URL}gallery/activity-art-showcase.jpg`;
@@ -43,10 +44,19 @@ function HeroStory({ animated, mobileContinuation, photosStyle, reduceMotion, st
               Welcome to Abraham
             </span>
           </div>
-          <h1 className="font-heading text-[clamp(2.65rem,12vw,5.6rem)] font-semibold leading-[0.94] text-ivory sm:leading-[0.92]">
+          {/* On first (intro) visits the framer-motion story owns the hero
+              entrance, so the SplitText reveal is disabled to avoid a double
+              animation. Return visits get the masked word-by-word rise. */}
+          <SplitHeading
+            as="h1"
+            disabled={animated}
+            stagger={0.07}
+            start="top 92%"
+            className="font-heading text-[clamp(2.65rem,12vw,5.6rem)] font-semibold leading-[0.94] text-ivory sm:leading-[0.92]"
+          >
             {hero.headlineLead}
             <span className="mt-2 block text-gold">{hero.headlineAccent}</span>
-          </h1>
+          </SplitHeading>
           <p className="mt-6 max-w-xl font-body text-[0.98rem] leading-7 text-white/76 sm:text-lg sm:leading-8">
             {hero.subheadline}
           </p>
