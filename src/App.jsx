@@ -7,8 +7,11 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { IntroProvider } from "./lib/intro";
+import { useAnchorScroll } from "./lib/use-anchor-scroll";
 
 function App() {
+  useAnchorScroll();
+
   return (
     <IntroProvider>
       <div className="min-h-screen bg-cream">

@@ -56,8 +56,11 @@
   }
 }
 
+/* Native smooth scrolling is intentionally off: in-page navigation is
+   animated by GSAP ScrollToPlugin (see src/lib/use-anchor-scroll.js), and
+   CSS smooth scrolling would fight it frame-by-frame. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {

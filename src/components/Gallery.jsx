@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
 import { Building2, Camera, ChevronLeft, ChevronRight, MapPinned, School, Sparkles, Users, X } from "lucide-react";
+import { gsap } from "../lib/gsap";
 import { content } from "../content";
-import Reveal, { RevealGroup, RevealItem } from "./Reveal";
+import Reveal from "./Reveal";
 import { DashedHeading } from "./Approach";
+import SplitHeading from "./SplitHeading";
 
 const categoryStyles = {
   navy: {
@@ -226,6 +229,28 @@ function Gallery() {
   const { gallery } = content;
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = gallery.categories ?? [];
+  const boardRef = useRef(null);
+
+  // Sticker cards deal onto the pinboard with a soft rotation that settles
+  // straight — like photos being laid on a table. Lighter on mobile, and
+  // inline transforms are cleared afterwards so the hover-lift still works.
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+      gsap.from("[data-gallery-card]", {
+        y: isMobile ? 26 : 44,
+        opacity: 0,
+        rotate: isMobile ? 0 : () => gsap.utils.random(-3, 3),
+        duration: 0.7,
+        stagger: 0.09,
+        clearProps: "transform,opacity",
+        scrollTrigger: { trigger: boardRef.current, start: "top 82%", once: true },
+      });
+    },
+    { scope: boardRef },
+  );
 
   return (
     <section className="relative overflow-hidden bg-gold-soft py-16 md:py-24">
@@ -233,30 +258,36 @@ function Gallery() {
       <div className="absolute inset-x-0 top-0 h-px bg-navy/15" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-[92rem] px-4 md:px-6">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-center">
+          <Reveal>
             <span className="font-body text-sm font-bold uppercase tracking-[0.24em] text-ruby">
               Gallery
             </span>
-            <h2 className="mt-4 font-heading text-4xl font-semibold text-navy md:text-6xl">
-              <DashedHeading>{gallery.heading}</DashedHeading>
-            </h2>
+          </Reveal>
+          <h2 className="mt-4 font-heading text-4xl font-semibold text-navy md:text-6xl">
+            <DashedHeading>
+              <SplitHeading as="span" className="inline-block" stagger={0.07}>
+                {gallery.heading}
+              </SplitHeading>
+            </DashedHeading>
+          </h2>
+          <Reveal delay={0.15}>
             <p className="mt-5 font-body text-base leading-8 text-ink/75 sm:text-lg">
               {gallery.intro}
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className="relative mt-10 rounded-md border border-gold/30 bg-emerald-dark p-4 shadow-2xl shadow-navy/25 md:mt-12 md:p-6">
           <div className="absolute -top-4 left-8 h-8 w-28 -rotate-3 rounded-sm bg-ivory/80 shadow-sm ring-1 ring-gold/35" aria-hidden="true" />
           <div className="absolute -top-4 right-10 h-8 w-28 rotate-3 rounded-sm bg-ivory/80 shadow-sm ring-1 ring-gold/35" aria-hidden="true" />
-          <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6" stagger={0.07}>
+          <div ref={boardRef} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
             {categories.map((category) => (
-              <RevealItem key={category.label}>
+              <div key={category.label} data-gallery-card>
                 <GallerySticker category={category} onOpen={setSelectedCategory} />
-              </RevealItem>
+              </div>
             ))}
-          </RevealGroup>
+          </div>
         </div>
       </div>
 

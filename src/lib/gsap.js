@@ -1,84 +1,20 @@
-import { gsap } from 'gsap'
+import { gsap } from "gsap";
+import { CustomEase } from "gsap/CustomEase";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
-import { CustomEase } from 'gsap/CustomEase'
-import { CustomBounce } from 'gsap/CustomBounce'
-import { CustomWiggle } from 'gsap/CustomWiggle'
-import { RoughEase, ExpoScaleEase, SlowMo } from 'gsap/EasePack'
-import { Draggable } from 'gsap/Draggable'
-import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
-import { EaselPlugin } from 'gsap/EaselPlugin'
-import { Flip } from 'gsap/Flip'
-import { InertiaPlugin } from 'gsap/InertiaPlugin'
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
-import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
-import { Observer } from 'gsap/Observer'
-import { Physics2DPlugin } from 'gsap/Physics2DPlugin'
-import { PhysicsPropsPlugin } from 'gsap/PhysicsPropsPlugin'
-import { PixiPlugin } from 'gsap/PixiPlugin'
-import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ScrollSmoother } from 'gsap/ScrollSmoother'
-import { SplitText } from 'gsap/SplitText'
-import { TextPlugin } from 'gsap/TextPlugin'
+// Only the plugins this site actually animates with are registered, keeping
+// the bundle lean. ScrollSmoother is deliberately absent: it would hijack
+// native scrolling and fight the hero's framer-motion pinned intro.
+gsap.registerPlugin(CustomEase, DrawSVGPlugin, ScrollToPlugin, ScrollTrigger, SplitText);
 
-// CustomBounce and CustomWiggle both build on CustomEase, so it must be
-// registered first. ScrollSmoother builds on ScrollTrigger.
-gsap.registerPlugin(
-  CustomEase,
-  CustomBounce,
-  CustomWiggle,
-  Draggable,
-  DrawSVGPlugin,
-  EaselPlugin,
-  Flip,
-  InertiaPlugin,
-  MotionPathPlugin,
-  MorphSVGPlugin,
-  Observer,
-  Physics2DPlugin,
-  PhysicsPropsPlugin,
-  PixiPlugin,
-  ScrambleTextPlugin,
-  ScrollToPlugin,
-  ScrollTrigger,
-  ScrollSmoother,
-  SplitText,
-  TextPlugin
-)
+// The site-wide signature ease — the same settle curve as framer-motion's
+// EASE ([0.16, 1, 0.3, 1]) so both engines feel like one system.
+CustomEase.create("apc", "0.16, 1, 0.3, 1");
 
-// Dev-only debugging helpers — never registered in a production build.
-if (import.meta.env.DEV) {
-  const [{ GSDevTools }, { MotionPathHelper }] = await Promise.all([
-    import('gsap/GSDevTools'),
-    import('gsap/MotionPathHelper'),
-  ])
-  gsap.registerPlugin(GSDevTools, MotionPathHelper)
-}
+// Shared defaults keep every tween on the same voice.
+gsap.defaults({ ease: "apc", duration: 0.8 });
 
-export {
-  gsap,
-  CustomEase,
-  CustomBounce,
-  CustomWiggle,
-  RoughEase,
-  ExpoScaleEase,
-  SlowMo,
-  Draggable,
-  DrawSVGPlugin,
-  EaselPlugin,
-  Flip,
-  InertiaPlugin,
-  MotionPathPlugin,
-  MorphSVGPlugin,
-  Observer,
-  Physics2DPlugin,
-  PhysicsPropsPlugin,
-  PixiPlugin,
-  ScrambleTextPlugin,
-  ScrollToPlugin,
-  ScrollTrigger,
-  ScrollSmoother,
-  SplitText,
-  TextPlugin,
-}
+export { gsap, CustomEase, DrawSVGPlugin, ScrollToPlugin, ScrollTrigger, SplitText };
