@@ -103,6 +103,15 @@ body {
   scroll-margin-top: 5.5rem;
 }
 
+@media (max-width: 767px) {
+  #home,
+  #about,
+  #admissions,
+  #contact {
+    scroll-margin-top: 7.25rem;
+  }
+}
+
 /* Faint dot grid — the mockup's dotted decorative patterns. */
 .bg-dot-grid {
   background-image: radial-gradient(
