@@ -34,11 +34,12 @@ function Contact() {
   const appleDirectionsUrl = `https://maps.apple.com/?daddr=${encodedAddress}&dirflg=d`;
 
   return (
-    <section id="contact" className="bg-cream py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="contact" className="relative overflow-hidden bg-navy py-20 text-white md:py-28">
+      <div aria-hidden="true" className="royal-hero__texture absolute inset-0 opacity-55" />
+      <div className="relative mx-auto max-w-7xl px-6">
         <Reveal>
           <span className="flex items-center gap-4">
-            <h2 className="font-heading text-3xl font-bold text-navy md:text-4xl">
+            <h2 className="font-heading text-4xl font-semibold text-white md:text-6xl">
               {contact.heading}
             </h2>
             <span aria-hidden="true" className="hidden h-0.5 w-12 rounded bg-gold sm:block" />
@@ -46,20 +47,20 @@ function Contact() {
         </Reveal>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
-          <RevealGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.08}>
+          <RevealGroup className="grid self-start auto-rows-min grid-cols-1 content-start gap-4 sm:grid-cols-2" stagger={0.08}>
             {contact.cards.map((card) => (
               <RevealItem
                 key={card.label}
-                className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-lg shadow-navy/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-navy/10"
+                className="flex items-start gap-4 rounded-md border border-white/12 bg-white/7 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/35 hover:bg-white/10"
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/35 bg-gold/10 text-gold">
                   <Icon name={card.icon} className="h-5 w-5" />
                 </span>
                 <span>
-                  <p className="font-heading text-sm font-bold uppercase tracking-wide text-maroon">
+                  <p className="font-heading text-sm font-bold uppercase tracking-wide text-gold-soft">
                     {card.label}
                   </p>
-                  <p className="mt-1 font-body text-sm leading-relaxed text-ink/85">
+                  <p className="mt-1 font-body text-sm leading-relaxed text-white/78">
                     {card.value}
                   </p>
                 </span>
@@ -69,7 +70,7 @@ function Contact() {
 
           <Reveal delay={0.2}>
             <div className="flex h-full flex-col gap-4">
-              <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-2xl bg-blue-card/60 shadow-xl shadow-navy/10 ring-1 ring-navy/10">
+              <div className="relative min-h-[250px] flex-1 overflow-hidden rounded-md bg-blue-card/60 shadow-2xl shadow-black/25 ring-1 ring-gold/20">
                 <iframe
                   title={`${contact.heading} satellite map`}
                   src={satelliteMapUrl}
@@ -95,8 +96,8 @@ function Contact() {
                     </a>
                   </Ripple>
                 </Magnetic>
-                <div className="rounded-2xl bg-white p-4 shadow-lg shadow-navy/5 ring-1 ring-navy/5">
-                  <p className="font-heading text-sm font-bold uppercase tracking-wide text-maroon">
+                <div className="rounded-md border border-white/12 bg-white/7 p-4 backdrop-blur-sm">
+                  <p className="font-heading text-sm font-bold uppercase tracking-wide text-gold-soft">
                     Directions
                   </p>
                   <div className="mt-3 grid grid-cols-2 gap-3">
@@ -104,7 +105,7 @@ function Contact() {
                       href={googleDirectionsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-2 rounded-xl border border-navy/10 bg-cream px-3 py-3 font-body text-sm font-bold text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/50 hover:bg-white hover:shadow-lg hover:shadow-navy/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                      className="flex min-h-14 items-center justify-center gap-2 rounded-md border border-white/15 bg-ivory px-3 py-3 font-body text-sm font-bold text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:bg-white hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                       aria-label="Open directions in Google Maps"
                     >
                       <GoogleMapsIcon />
@@ -114,7 +115,7 @@ function Contact() {
                       href={appleDirectionsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-2 rounded-xl border border-navy/10 bg-cream px-3 py-3 font-body text-sm font-bold text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/50 hover:bg-white hover:shadow-lg hover:shadow-navy/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                      className="flex min-h-14 items-center justify-center gap-2 rounded-md border border-white/15 bg-ivory px-3 py-3 font-body text-sm font-bold text-navy transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:bg-white hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                       aria-label="Open directions in Apple Maps"
                     >
                       <AppleMapsIcon />

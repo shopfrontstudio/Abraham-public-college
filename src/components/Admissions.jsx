@@ -16,7 +16,7 @@ const initialForm = {
 };
 
 const inputClass =
-  "w-full rounded-lg border border-navy/15 bg-white px-4 py-2.5 font-body text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/15";
+  "w-full rounded-md border border-navy/15 bg-white px-4 py-3 font-body text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-ruby focus:outline-none focus:ring-2 focus:ring-ruby/15";
 
 function Admissions() {
   const { admissions, homeFeeling } = content;
@@ -36,25 +36,27 @@ function Admissions() {
   };
 
   return (
-    <section id="admissions" className="bg-cream py-20 md:py-24">
-      <div className="mx-auto grid max-w-6xl items-stretch gap-8 px-6 lg:grid-cols-[2fr_3fr]">
+    <section id="admissions" className="relative overflow-hidden bg-ruby py-20 text-white md:py-28">
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.055),transparent_42%)]" />
+      <div className="relative mx-auto grid max-w-7xl items-stretch gap-10 px-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
         {/* Left: warm "feels like home" card */}
         <Reveal>
-          <div className="h-full rounded-3xl bg-gradient-to-br from-yellow-soft to-cream-deep p-8 shadow-lg shadow-navy/5 md:p-10">
-            <h2 className="font-heading text-2xl font-bold leading-snug text-navy md:text-3xl">
+          <div className="flex h-full flex-col justify-center py-4 md:p-6">
+            <span className="font-body text-xs font-bold uppercase tracking-[0.28em] text-gold-soft">A place to belong</span>
+            <h2 className="mt-5 font-heading text-4xl font-semibold leading-[1.05] text-white md:text-6xl">
               {homeFeeling.heading}
             </h2>
-            <p className="mt-4 font-body leading-relaxed text-muted">
+            <p className="mt-6 max-w-lg font-body text-base leading-8 text-white/76">
               {homeFeeling.copy}
             </p>
 
-            <ul className="mt-8 grid grid-cols-3 gap-4">
+            <ul className="mt-10 grid grid-cols-3 gap-3 border-y border-white/16 py-6">
               {homeFeeling.points.map((point) => (
                 <li key={point.label} className="flex flex-col items-center gap-3 text-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-gold shadow-md shadow-navy/10">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-white/8 text-gold-soft">
                     <Icon name={point.icon} className="h-6 w-6" />
                   </span>
-                  <span className="font-body text-xs font-semibold leading-snug text-navy">
+                  <span className="font-body text-[0.68rem] font-bold leading-snug text-white sm:text-xs">
                     {point.label}
                   </span>
                 </li>
@@ -65,10 +67,10 @@ function Admissions() {
 
         {/* Right: admission enquiry card — steps beside the form */}
         <Reveal delay={0.15}>
-          <div className="h-full rounded-3xl bg-white p-8 shadow-lg shadow-navy/5 md:p-10">
+          <div className="h-full rounded-md bg-ivory p-6 text-ink shadow-2xl shadow-navy-deep/25 sm:p-8 md:p-10">
             <span className="flex items-center gap-3">
               <span aria-hidden="true" className="h-0.5 w-6 rounded bg-gold" />
-              <h2 className="font-heading text-2xl font-bold text-navy md:text-3xl">
+              <h2 className="font-heading text-3xl font-semibold text-navy md:text-4xl">
                 {admissions.heading}
               </h2>
             </span>
@@ -99,7 +101,7 @@ function Admissions() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     role="status"
-                    className="flex flex-col items-center justify-center gap-3 rounded-2xl bg-green-soft px-6 py-10 text-center"
+                    className="flex flex-col items-center justify-center gap-3 rounded-md bg-green-soft px-6 py-10 text-center"
                   >
                     <CheckCircle2 className="h-10 w-10 text-green-accent" aria-hidden="true" />
                     <p className="font-body font-semibold text-navy">{successMessage}</p>
@@ -176,10 +178,10 @@ function Admissions() {
                     </label>
 
                     <Magnetic strength={0.2} className="block w-full">
-                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-lg">
+                      <Ripple className="btn-shine relative block w-full overflow-hidden rounded-md">
                         <button
                           type="submit"
-                          className="flex w-full items-center justify-center gap-2 rounded-lg bg-maroon px-6 py-3 font-body font-bold text-white shadow-md shadow-maroon/20 transition-all hover:-translate-y-0.5 hover:bg-maroon-dark"
+                          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-ruby px-6 py-3 font-body font-bold text-white shadow-md shadow-ruby/20 transition-all hover:-translate-y-0.5 hover:bg-ruby-dark"
                         >
                           {submitLabel}
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />

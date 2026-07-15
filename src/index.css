@@ -4,25 +4,31 @@
   --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Manrope", system-ui, -apple-system, sans-serif;
 
-  /* Prospectus palette from the reference mockup: deep navy header/footer,
-     maroon CTAs, gold accents, cream page, soft blue + soft yellow sections. */
-  --color-navy: #102a43;
-  --color-navy-deep: #08213f;
-  --color-maroon: #8a1e2d;
-  --color-maroon-dark: #6d1622;
-  --color-gold: #d6a84f;
-  --color-gold-soft: #f3e2bd;
-  --color-cream: #fff8ec;
-  --color-cream-deep: #f7ecd8;
-  --color-blue-soft: #eff8ff;
-  --color-blue-card: #dceefb;
-  --color-yellow-soft: #fff4d8;
-  --color-green-soft: #e3f2e6;
-  --color-green-accent: #4c9a63;
-  --color-blue-accent: #3d7fb8;
-  --color-pink-accent: #c94f63;
-  --color-ink: #102033;
-  --color-muted: #5f6b7a;
+  /* Royal jewel palette: the crest's navy and gold lead, while ruby and
+     emerald create vivid section changes without diluting the identity. */
+  --color-navy: #0b3157;
+  --color-navy-deep: #05162b;
+  --color-royal-blue: #123f6b;
+  --color-maroon: #a02341;
+  --color-maroon-dark: #75172e;
+  --color-ruby: #a02341;
+  --color-ruby-dark: #75172e;
+  --color-emerald: #126451;
+  --color-emerald-dark: #0b463b;
+  --color-gold: #d8ad52;
+  --color-gold-soft: #f0d69d;
+  --color-ivory: #fffaf0;
+  --color-cream: #fffaf0;
+  --color-cream-deep: #f3e5ca;
+  --color-blue-soft: #e9f3f8;
+  --color-blue-card: #cfe3ed;
+  --color-yellow-soft: #fff0c8;
+  --color-green-soft: #dceee7;
+  --color-green-accent: #126451;
+  --color-blue-accent: #276d9e;
+  --color-pink-accent: #be4962;
+  --color-ink: #10243a;
+  --color-muted: #556477;
 
   --animate-float-slow: float 6s ease-in-out infinite;
   --animate-float-medium: float 5s ease-in-out infinite;
@@ -58,6 +64,25 @@ body {
   background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  border-radius: 0.25rem;
+  background: var(--color-gold);
+  color: var(--color-navy-deep);
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 ::selection {
@@ -86,6 +111,40 @@ body {
     transparent 2px
   );
   background-size: 20px 20px;
+}
+
+.royal-hero__texture {
+  background-image:
+    linear-gradient(rgba(216, 173, 82, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(216, 173, 82, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.royal-hero__light {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(216, 173, 82, 0.17), transparent 30%),
+    linear-gradient(130deg, rgba(18, 100, 81, 0.15), transparent 36%),
+    linear-gradient(230deg, rgba(160, 35, 65, 0.14), transparent 38%);
+}
+
+.royal-crest-glow {
+  background: rgba(216, 173, 82, 0.2);
+  filter: blur(42px);
+}
+
+.section-arch-top {
+  clip-path: ellipse(74% 100% at 50% 100%);
+}
+
+@keyframes royal-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
 }
 
 /* Cursor-lit glow for spotlight-hover cards (mouse only; resting state
@@ -146,5 +205,9 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .royal-hero {
+    min-height: 100svh;
   }
 }

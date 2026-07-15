@@ -1,140 +1,211 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { GraduationCap, PhoneCall, ArrowRight, Send, Pencil, Star, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { ArrowDown, ArrowRight, PhoneCall } from "lucide-react";
 import { content } from "../content";
-import { Icon } from "../lib/icons";
 import { EASE } from "../lib/motion";
+import { useIntro } from "../lib/intro-context";
 import Magnetic from "./Magnetic";
-import TiltCard from "./TiltCard";
 import Ripple from "./Ripple";
 import Crest from "./Crest";
 
-// Playful hand-drawn feeling doodles scattered around the hero, matching the
-// reference mockup: paper plane, 123, ABC letters, pencil, stars. All
-// decorative (aria-hidden), gently floating, hidden on small screens.
-function Doodles() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
-      <Send className="animate-float-slow absolute left-[4%] top-16 h-9 w-9 -rotate-12 text-gold" strokeWidth={1.5} />
-      <svg className="absolute left-[7%] top-24 h-16 w-24 text-gold/60" viewBox="0 0 100 60" fill="none">
-        <path d="M8 8 C30 40 60 50 92 30" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 6" strokeLinecap="round" />
-      </svg>
-      <span className="animate-float-medium absolute left-[38%] top-10 font-heading text-3xl font-semibold italic text-green-accent/80">
-        123
-      </span>
-      <span className="animate-float-slow absolute bottom-24 left-[3%] select-none font-heading text-4xl font-bold">
-        <span className="text-pink-accent">A</span>
-        <span className="text-blue-accent">B</span>
-        <span className="text-gold">C</span>
-      </span>
-      <Pencil className="animate-float-medium absolute bottom-40 left-[30%] h-8 w-8 rotate-45 text-gold" strokeWidth={1.5} />
-      <Star className="animate-float-slow absolute left-[34%] top-1/2 h-5 w-5 text-gold/70" strokeWidth={1.5} />
-      <Sparkles className="animate-float-medium absolute right-[6%] bottom-16 h-6 w-6 text-gold/60" strokeWidth={1.5} />
-      <Star className="animate-float-medium absolute left-[46%] top-[30%] h-4 w-4 rotate-12 text-maroon/40" strokeWidth={1.5} />
-    </div>
-  );
-}
+const studentPhoto = `${import.meta.env.BASE_URL}gallery/students-14.jpg`;
+const activityPhoto = `${import.meta.env.BASE_URL}gallery/activity-art-showcase.jpg`;
 
 function Hero() {
-  const { hero } = content;
+  const sectionRef = useRef(null);
   const reduceMotion = useReducedMotion();
+  const { completeIntro, headerVisible, isIntroVisit, progress, setHeaderVisible } = useIntro();
+  const { hero, school } = content;
+  const playIntro = isIntroVisit && !reduceMotion;
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const crestScale = useTransform(scrollYProgress, [0, 0.3, 0.72, 0.96], [1, 0.92, 0.54, 0.14]);
+  const crestX = useTransform(scrollYProgress, [0, 0.58, 0.96], ["0vw", "0vw", "-39vw"]);
+  const crestY = useTransform(scrollYProgress, [0, 0.48, 0.96], ["0vh", "-2vh", "-45vh"]);
+  const crestOpacity = useTransform(scrollYProgress, [0, 0.88, 0.96], [1, 1, 0]);
+  const introCopyOpacity = useTransform(scrollYProgress, [0, 0.1, 0.34, 0.56], [0, 1, 1, 0]);
+  const introCopyY = useTransform(scrollYProgress, [0, 0.22, 0.56], [24, 0, -28]);
+  const storyOpacity = useTransform(scrollYProgress, [0.44, 0.66, 1], [0, 1, 1]);
+  const storyY = useTransform(scrollYProgress, [0.44, 0.76, 1], [70, 0, 0]);
+  const photosY = useTransform(scrollYProgress, [0.46, 0.78, 1], [150, 0, -12]);
+  const scrollCueOpacity = useTransform(scrollYProgress, [0, 0.18, 0.34], [1, 1, 0]);
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (!playIntro) return;
+    progress.set(value);
+    setHeaderVisible(value >= 0.79);
+    if (value >= 0.96) completeIntro();
+  });
+
+  useEffect(() => {
+    if (!playIntro) {
+      progress.set(1);
+      setHeaderVisible(true);
+      if (reduceMotion && isIntroVisit) completeIntro();
+    }
+  }, [completeIntro, isIntroVisit, playIntro, progress, reduceMotion, setHeaderVisible]);
+
+  const storyStyle = playIntro ? { opacity: storyOpacity, y: storyY } : undefined;
+  const photosStyle = playIntro ? { y: photosY } : undefined;
 
   return (
-    <section id="home" className="relative overflow-hidden bg-cream px-6 pb-28 pt-16 md:pb-32 md:pt-20">
-      {/* Soft warm vignettes, like the mockup's gentle corner tints. */}
-      <div aria-hidden="true" className="absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-gold-soft/50 blur-3xl" />
-      <div aria-hidden="true" className="absolute -right-20 -top-16 h-72 w-72 rounded-full bg-yellow-soft/80 blur-3xl" />
+    <section
+      ref={sectionRef}
+      id="home"
+      className={`royal-hero relative bg-navy-deep ${playIntro ? "h-[180svh]" : "min-h-[92svh]"}`}
+    >
+      <div className={`${playIntro ? "sticky top-0 min-h-[100svh]" : "relative min-h-[92svh]"} overflow-hidden`}>
+        <div aria-hidden="true" className="royal-hero__texture absolute inset-0" />
+        <div aria-hidden="true" className="royal-hero__light absolute inset-0" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/65 to-transparent" />
 
-      <Doodles />
+        {playIntro && (
+          <>
+            <motion.div
+              className="pointer-events-none absolute left-1/2 top-1/2 z-30 w-[min(72vw,29rem)] -translate-x-1/2 -translate-y-1/2 will-change-transform"
+              style={{ opacity: crestOpacity, scale: crestScale, x: crestX, y: crestY }}
+              aria-hidden="true"
+            >
+              <div className="royal-crest-glow absolute inset-[8%] rounded-full" />
+              <Crest className="relative w-full drop-shadow-[0_28px_55px_rgba(0,0,0,0.38)]" />
+            </motion.div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 md:grid-cols-2 md:gap-10">
+            <motion.div
+              className="pointer-events-none absolute inset-x-6 top-[73%] z-20 text-center sm:top-[76%]"
+              style={{ opacity: introCopyOpacity, y: introCopyY }}
+            >
+              <p className="font-body text-[0.64rem] font-bold uppercase tracking-[0.38em] text-gold sm:text-xs">
+                Estd. 2004 · Lucknow
+              </p>
+              <p className="mt-3 font-heading text-2xl font-semibold text-ivory sm:text-4xl">
+                {school.name}
+              </p>
+              <p className="mt-2 font-heading text-base italic text-gold-soft sm:text-xl">
+                {school.tagline}
+              </p>
+            </motion.div>
+
+            {!headerVisible && (
+              <motion.div
+                className="absolute bottom-7 left-1/2 z-20 -translate-x-1/2 text-center"
+                style={{ opacity: scrollCueOpacity }}
+                aria-hidden="true"
+              >
+                <span className="font-body text-[0.62rem] font-bold uppercase tracking-[0.28em] text-white/55">
+                  Scroll to enter
+                </span>
+                <ArrowDown className="mx-auto mt-2 h-5 w-5 animate-[royal-bob_1.8s_ease-in-out_infinite] text-gold" />
+              </motion.div>
+            )}
+          </>
+        )}
+
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
+          className={`relative z-10 mx-auto flex max-w-7xl items-center px-5 pt-28 sm:px-6 lg:pt-24 ${
+            playIntro ? "min-h-[100svh] pb-12 lg:pb-16" : "min-h-[92svh] pb-4 lg:pb-6"
+          }`}
+          style={storyStyle}
+          initial={playIntro || reduceMotion ? false : { opacity: 0 }}
+          animate={playIntro ? undefined : { opacity: 1 }}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/50 bg-yellow-soft px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.2em] text-maroon">
-            <GraduationCap className="h-4 w-4 text-gold" aria-hidden="true" />
-            {hero.welcomePill}
-          </span>
-
-          <h1 className="mt-5 font-heading text-4xl font-bold leading-tight text-navy md:text-5xl lg:text-[3.4rem]">
-            {hero.headlineLead}
-            <br />
-            <span className="text-maroon">{hero.headlineAccent}</span>
-          </h1>
-
-          <p className="mt-6 max-w-md font-body leading-relaxed text-muted">
-            {hero.subheadline}
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Magnetic strength={0.3}>
-              <Ripple className="btn-shine relative inline-block overflow-hidden rounded-lg">
-                <a
-                  href="#admissions"
-                  className="inline-flex items-center gap-2 rounded-lg bg-maroon px-6 py-3 font-body font-bold text-white shadow-md shadow-maroon/25 transition-all hover:-translate-y-0.5 hover:bg-maroon-dark"
-                >
-                  {hero.primaryCta}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Ripple>
-            </Magnetic>
-            <Magnetic strength={0.3}>
-              <Ripple color="rgba(16,42,67,0.15)" className="relative inline-block overflow-hidden rounded-lg">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 rounded-lg border border-navy/25 bg-white px-6 py-3 font-body font-bold text-navy transition-all hover:-translate-y-0.5 hover:border-navy"
-                >
-                  {hero.secondaryCta}
-                  <PhoneCall className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Ripple>
-            </Magnetic>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative mx-auto w-full max-w-lg"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-        >
-          {/* Graduation-cap badge overlapping the photo's top-right corner. */}
-          <span className="absolute -right-3 -top-5 z-10 flex h-16 w-16 items-center justify-center rounded-full bg-navy shadow-lg ring-4 ring-cream">
-            <GraduationCap className="h-7 w-7 text-white" aria-hidden="true" />
-          </span>
-
-          <TiltCard max={4} className="animate-float-slow [transform-style:preserve-3d]">
-            <div className="rotate-2 rounded-2xl bg-white p-2.5 shadow-xl shadow-navy/15 transition-transform duration-500 hover:rotate-1">
-              {/* Replace this placeholder with a real photo of the school:
-                  <img src="..." alt="Abraham Public College building" className="aspect-[4/3] w-full rounded-xl object-cover" /> */}
-              <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-blue-card via-cream to-yellow-soft">
-                <Crest className="h-36 w-36 drop-shadow md:h-44 md:w-44" />
-                <span className="font-body text-xs font-semibold uppercase tracking-widest text-navy/50">
-                  School Photo · Estd. 2004
+          <div className="grid w-full items-center gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+            <div className="relative z-20 max-w-2xl">
+              <div className="mb-7 flex items-center gap-4">
+                <span className="h-px w-12 bg-gold" aria-hidden="true" />
+                <span className="font-body text-[0.68rem] font-bold uppercase tracking-[0.3em] text-gold">
+                  Welcome to Abraham
                 </span>
               </div>
-            </div>
-          </TiltCard>
+              <h1 className="font-heading text-[clamp(2.8rem,6vw,5.6rem)] font-semibold leading-[0.92] text-ivory">
+                {hero.headlineLead}
+                <span className="mt-2 block text-gold">{hero.headlineAccent}</span>
+              </h1>
+              <p className="mt-6 max-w-xl font-body text-base leading-7 text-white/72 sm:text-lg sm:leading-8">
+                {hero.subheadline}
+              </p>
 
-          {/* Floating trust card overlapping the photo's bottom edge. */}
-          <motion.div
-            className="relative z-10 -mt-8 md:-ml-10 md:mr-6"
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
-          >
-            <ul className="grid grid-cols-2 divide-navy/10 rounded-2xl bg-white p-4 shadow-xl shadow-navy/10 sm:grid-cols-4 sm:divide-x">
+              <div className="mt-7 flex flex-wrap gap-3 sm:gap-4">
+                <Magnetic strength={0.28}>
+                  <Ripple className="btn-shine relative inline-block overflow-hidden rounded-md">
+                    <a
+                      href="#admissions"
+                      className="inline-flex min-h-12 items-center gap-2 rounded-md bg-ruby px-6 py-3 font-body font-bold text-white shadow-xl shadow-black/20 transition-all hover:-translate-y-0.5 hover:bg-ruby-dark"
+                    >
+                      {hero.primaryCta}
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </Ripple>
+                </Magnetic>
+                <Magnetic strength={0.24}>
+                  <Ripple color="rgba(255,255,255,0.14)" className="relative inline-block overflow-hidden rounded-md">
+                    <a
+                      href="#contact"
+                      className="inline-flex min-h-12 items-center gap-2 rounded-md border border-gold/45 bg-white/6 px-6 py-3 font-body font-bold text-ivory backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-white/10"
+                    >
+                      {hero.secondaryCta}
+                      <PhoneCall className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </Ripple>
+                </Magnetic>
+              </div>
+            </div>
+
+            <motion.div className="relative mx-auto w-full max-w-2xl lg:mx-0" style={photosStyle}>
+              <div aria-hidden="true" className="absolute -left-10 -top-12 h-56 w-56 rounded-full border border-gold/15" />
+              <div aria-hidden="true" className="absolute -left-4 -top-6 h-44 w-44 rounded-full border border-gold/25" />
+              <div className="relative grid grid-cols-[1fr_0.72fr] items-end gap-3 sm:gap-5">
+                <figure className="relative overflow-hidden rounded-md border border-white/15 bg-navy shadow-2xl shadow-black/35">
+                  <img
+                    src={studentPhoto}
+                    alt="Young Abraham Public College students together in their classroom"
+                    className="h-52 w-full object-cover object-center sm:h-auto sm:aspect-[4/4.4]"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent" aria-hidden="true" />
+                  <figcaption className="absolute bottom-4 left-4 right-4 font-body text-xs font-bold uppercase tracking-[0.18em] text-white/85">
+                    Confidence begins here
+                  </figcaption>
+                </figure>
+
+                <div className="space-y-3 sm:space-y-5">
+                  <div className="relative mx-auto w-[68%]">
+                    <div className="royal-crest-glow absolute inset-2 rounded-full" aria-hidden="true" />
+                    <Crest className="relative w-full drop-shadow-[0_18px_30px_rgba(0,0,0,0.28)]" />
+                  </div>
+                  <figure className="relative overflow-hidden rounded-md border border-gold/25 shadow-2xl shadow-black/30">
+                    <img
+                      src={activityPhoto}
+                      alt="Abraham Public College students proudly presenting their artwork"
+                      className="h-36 w-full object-cover sm:h-auto sm:aspect-[4/5]"
+                      loading="eager"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-emerald/60 via-transparent to-transparent" aria-hidden="true" />
+                  </figure>
+                </div>
+              </div>
+            </motion.div>
+
+            <ul className="hidden grid-cols-4 gap-px overflow-hidden border border-white/12 bg-white/12 sm:grid lg:col-span-2">
               {hero.trustBadges.map((badge) => (
-                <li key={badge.label} className="flex flex-col items-center gap-2 px-2 py-3 text-center">
-                  <Icon name={badge.icon} className="h-6 w-6 text-maroon" />
-                  <span className="font-body text-xs font-semibold leading-snug text-navy">
+                <li key={badge.label} className="bg-navy-deep/88 px-3 py-3 text-center sm:px-4">
+                  <span className="font-body text-[0.68rem] font-bold uppercase tracking-[0.12em] text-gold-soft">
                     {badge.label}
                   </span>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

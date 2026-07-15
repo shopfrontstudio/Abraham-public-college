@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Building2, Camera, ChevronLeft, ChevronRight, MapPinned, School, Sparkles, Users, X } from "lucide-react";
 import { content } from "../content";
 import Reveal, { RevealGroup, RevealItem } from "./Reveal";
@@ -53,7 +53,7 @@ function GallerySticker({ category, onOpen }) {
     <button
       type="button"
       onClick={() => hasPhotos && onOpen(category)}
-      className={`group relative aspect-[1.04/1] w-full overflow-hidden rounded-2xl text-left shadow-xl shadow-navy/12 ring-1 ring-navy/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/18 hover:ring-gold/55 focus-visible:ring-2 focus-visible:ring-gold ${hasPhotos ? "cursor-pointer" : "cursor-default"}`}
+      className={`group relative aspect-[1.04/1] w-full overflow-hidden rounded-md text-left shadow-xl shadow-navy/12 ring-1 ring-navy/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/18 hover:ring-gold/55 focus-visible:ring-2 focus-visible:ring-gold ${hasPhotos ? "cursor-pointer" : "cursor-default"}`}
       aria-label={hasPhotos ? `Open ${category.label} gallery` : category.label}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${style.gradient}`} />
@@ -76,7 +76,7 @@ function GallerySticker({ category, onOpen }) {
               alt=""
               loading="lazy"
               aria-hidden="true"
-              className={`absolute left-1/2 top-1/2 h-[78%] w-[82%] rounded-xl border-2 border-white/85 object-cover shadow-2xl transition-all duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 ${
+              className={`absolute left-1/2 top-1/2 h-[78%] w-[82%] rounded-sm border-2 border-white/85 object-cover shadow-2xl transition-all duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 ${
                 index === 0
                   ? "-translate-x-1/2 -translate-y-1/2 rotate-[-7deg] group-hover:-translate-x-[58%] group-hover:-translate-y-[54%] group-hover:rotate-[-13deg]"
                   : index === 1
@@ -114,7 +114,24 @@ function GallerySticker({ category, onOpen }) {
 
 function GalleryModal({ category, onClose }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const closeButtonRef = useRef(null);
   const activeItem = category.items[activeIndex];
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKeyDown);
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
 
   const showPrevious = () => {
     setActiveIndex((index) => (index === 0 ? category.items.length - 1 : index - 1));
@@ -133,16 +150,16 @@ function GalleryModal({ category, onClose }) {
       onClick={onClose}
     >
       <div
-        className="relative max-h-[88vh] w-full max-w-5xl overflow-hidden rounded-3xl border border-white/35 bg-white/20 shadow-2xl shadow-navy/35 backdrop-blur-2xl"
+        className="relative max-h-[88vh] w-full max-w-5xl overflow-y-auto rounded-xl border border-white/35 bg-white/20 shadow-2xl shadow-navy/35 backdrop-blur-2xl md:overflow-hidden"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/45 via-cream/25 to-white/10" aria-hidden="true" />
         <div className="relative grid gap-5 p-4 md:grid-cols-[1fr_16rem] md:p-6">
-          <div className="relative overflow-hidden rounded-2xl bg-navy-deep/20">
+          <div className="relative overflow-hidden rounded-md bg-navy-deep/20">
             <img
               src={imagePath(activeItem.image)}
               alt={activeItem.alt}
-              className="max-h-[62vh] min-h-[18rem] w-full object-contain"
+              className="max-h-[62vh] min-h-[12rem] w-full object-contain sm:min-h-[18rem]"
             />
             <button
               type="button"
@@ -173,6 +190,7 @@ function GalleryModal({ category, onClose }) {
                 </h3>
               </div>
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/85 text-navy shadow-sm transition-colors hover:bg-white"
@@ -182,7 +200,7 @@ function GalleryModal({ category, onClose }) {
               </button>
             </div>
 
-            <div className="mt-5 grid max-h-72 grid-cols-3 gap-3 overflow-y-auto pr-1 md:grid-cols-2">
+            <div className="mt-5 grid max-h-40 grid-cols-3 gap-3 overflow-y-auto pr-1 md:max-h-72 md:grid-cols-2">
               {category.items.map((item, index) => (
                 <button
                   key={item.image}
@@ -210,30 +228,28 @@ function Gallery() {
   const categories = gallery.categories ?? [];
 
   return (
-    <section className="relative overflow-hidden bg-cream py-10 md:py-12">
-      <div aria-hidden="true" className="bg-dot-grid absolute inset-0 opacity-55" />
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream-deep to-transparent" aria-hidden="true" />
-      <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-gold-soft/50 blur-3xl" aria-hidden="true" />
-      <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-blue-card/65 blur-3xl" aria-hidden="true" />
+    <section className="relative overflow-hidden bg-gold-soft py-16 md:py-24">
+      <div aria-hidden="true" className="bg-dot-grid absolute inset-0 opacity-30" />
+      <div className="absolute inset-x-0 top-0 h-px bg-navy/15" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-[92rem] px-4 md:px-6">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <span className="font-body text-sm font-semibold uppercase tracking-widest text-maroon">
+            <span className="font-body text-sm font-bold uppercase tracking-[0.24em] text-ruby">
               Gallery
             </span>
-            <h2 className="mt-3 font-heading text-3xl font-semibold text-navy md:text-4xl">
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-navy md:text-6xl">
               <DashedHeading>{gallery.heading}</DashedHeading>
             </h2>
-            <p className="mt-4 font-body text-lg leading-relaxed text-ink/75">
+            <p className="mt-5 font-body text-base leading-8 text-ink/75 sm:text-lg">
               {gallery.intro}
             </p>
           </div>
         </Reveal>
 
-        <div className="relative mt-6 rounded-[2rem] border border-gold/35 bg-white/65 p-4 shadow-2xl shadow-navy/10 backdrop-blur-sm md:mt-8 md:p-6">
-          <div className="absolute -top-4 left-8 h-8 w-28 -rotate-3 rounded-sm bg-white/65 shadow-sm ring-1 ring-gold/25" aria-hidden="true" />
-          <div className="absolute -top-4 right-10 h-8 w-28 rotate-3 rounded-sm bg-white/65 shadow-sm ring-1 ring-gold/25" aria-hidden="true" />
+        <div className="relative mt-10 rounded-md border border-gold/30 bg-emerald-dark p-4 shadow-2xl shadow-navy/25 md:mt-12 md:p-6">
+          <div className="absolute -top-4 left-8 h-8 w-28 -rotate-3 rounded-sm bg-ivory/80 shadow-sm ring-1 ring-gold/35" aria-hidden="true" />
+          <div className="absolute -top-4 right-10 h-8 w-28 rotate-3 rounded-sm bg-ivory/80 shadow-sm ring-1 ring-gold/35" aria-hidden="true" />
           <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6" stagger={0.07}>
             {categories.map((category) => (
               <RevealItem key={category.label}>

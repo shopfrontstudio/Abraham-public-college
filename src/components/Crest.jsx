@@ -14,7 +14,7 @@ function Crest({ className = "", title = "Abraham Public College crest" }) {
       alt={title}
       loading="eager"
       decoding="async"
-      className={`rounded-full object-cover ${className}`}
+      className={`object-cover [clip-path:circle(48%_at_50%_50%)] ${className}`}
     />
   );
 }

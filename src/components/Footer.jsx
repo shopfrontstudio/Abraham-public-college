@@ -6,8 +6,8 @@ function Footer() {
   const { school, footer } = content;
 
   return (
-    <footer className="border-t-4 border-gold bg-navy-deep text-white">
-      <div className="mx-auto max-w-6xl px-6 py-12">
+    <footer className="border-t border-gold/45 bg-navy-deep text-white">
+      <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid items-start gap-10 sm:grid-cols-3">
           <div className="flex items-center gap-3">
             {/* Replace the Crest component with the real logo image here if preferred. */}
@@ -49,7 +49,7 @@ function Footer() {
                   <a
                     href={social.href}
                     aria-label={social.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:text-gold"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:text-gold"
                   >
                     <Icon name={social.icon} className="h-4 w-4" />
                   </a>
