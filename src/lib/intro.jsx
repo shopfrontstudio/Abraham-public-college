@@ -1,39 +1,33 @@
-import { useCallback, useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { useMotionValue } from "framer-motion";
 import { IntroContext } from "./intro-context";
 
-const INTRO_STORAGE_KEY = "abraham-intro-seen-v1";
-
-function hasCompletedIntro() {
-  try {
-    return window.localStorage.getItem(INTRO_STORAGE_KEY) === "complete";
-  } catch {
-    return false;
-  }
-}
-
 export function IntroProvider({ children }) {
-  const [isIntroVisit] = useState(() => !hasCompletedIntro());
-  const [headerVisible, setHeaderVisible] = useState(() => !isIntroVisit);
-  const progress = useMotionValue(isIntroVisit ? 0 : 1);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const progress = useMotionValue(0);
 
-  const completeIntro = useCallback(() => {
-    try {
-      window.localStorage.setItem(INTRO_STORAGE_KEY, "complete");
-    } catch {
-      // The current visit still works when storage is unavailable.
-    }
+  useLayoutEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    const resetFrame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(resetFrame);
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
   }, []);
 
   const value = useMemo(
     () => ({
-      completeIntro,
       headerVisible,
-      isIntroVisit,
       progress,
       setHeaderVisible,
     }),
-    [completeIntro, headerVisible, isIntroVisit, progress],
+    [headerVisible, progress],
   );
 
   return <IntroContext.Provider value={value}>{children}</IntroContext.Provider>;

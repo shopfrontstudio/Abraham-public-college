@@ -143,9 +143,9 @@ function Hero() {
   const introStageRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const { completeIntro, headerVisible, isIntroVisit, progress, setHeaderVisible } = useIntro();
+  const { headerVisible, progress, setHeaderVisible } = useIntro();
   const { school } = content;
-  const playIntro = isIntroVisit && !reduceMotion;
+  const playIntro = !reduceMotion;
 
   const { scrollYProgress } = useScroll({
     target: introStageRef,
@@ -187,7 +187,6 @@ function Hero() {
     if (!playIntro) return;
     progress.set(value);
     if (!isMobile) setHeaderVisible(value >= 0.79);
-    if (value >= 0.94) completeIntro();
   });
 
   useEffect(() => {
@@ -195,9 +194,8 @@ function Hero() {
     if (!playIntro) {
       progress.set(1);
       setHeaderVisible(true);
-      if (reduceMotion && isIntroVisit) completeIntro();
     }
-  }, [completeIntro, isIntroVisit, isMobile, playIntro, progress, reduceMotion, setHeaderVisible]);
+  }, [isMobile, playIntro, progress, setHeaderVisible]);
 
   return (
     <section id="home" className="royal-hero relative overflow-hidden bg-navy-deep">
